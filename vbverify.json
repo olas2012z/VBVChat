@@ -21,5 +21,24 @@
     "avatar": "default",
     "deleted": false,
     "createdAt": "2025-11-20T19:48:34.357Z"
+  },
+  "_groups": {},
+  "VBV-SZALISEK": {
+    "id": "VBV-SZALISEK",
+    "nick": "Szalis",
+    "email": "drewheriotgaming8@gmail.com",
+    "birth": "1111-11-11",
+    "password": "h2593010",
+    "verified": false,
+    "verifyCode": "333949",
+    "friends": [],
+    "blockedUsers": [],
+    "groups": [],
+    "ownedGroups": [],
+    "moderatorGroups": [],
+    "status": "offline",
+    "avatar": "default",
+    "deleted": false,
+    "createdAt": "2025-11-20T20:02:49.601Z"
   }
 }
