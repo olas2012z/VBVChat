@@ -1,1 +1,24 @@
-
+{
+  "_meta": {
+    "blockedEmails": []
+  },
+  "_groups": {},
+  "VBV-SZALISEK": {
+    "id": "VBV-SZALISEK",
+    "nick": "Szalison",
+    "email": "drewheriotgaming8@gmail.com",
+    "birth": "1000-02-20",
+    "password": "h1803081316",
+    "verified": false,
+    "verifyCode": "817937",
+    "friends": [],
+    "blockedUsers": [],
+    "groups": [],
+    "ownedGroups": [],
+    "moderatorGroups": [],
+    "status": "offline",
+    "avatar": "default",
+    "deleted": false,
+    "createdAt": "2025-11-20T16:28:13.687Z"
+  }
+}
