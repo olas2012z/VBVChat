@@ -31,7 +31,9 @@
     "password": "h2593010",
     "verified": true,
     "verifyCode": null,
-    "friends": [],
+    "friends": [
+      "VBV-SZALISON"
+    ],
     "blockedUsers": [],
     "groups": [],
     "ownedGroups": [],
