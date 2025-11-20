@@ -22,7 +22,9 @@
     "password": "h1803081316",
     "verified": true,
     "verifyCode": null,
-    "friends": [],
+    "friends": [
+      "VBV-SZALISON"
+    ],
     "blockedUsers": [],
     "groups": [
       "GRP-745527"
@@ -44,7 +46,9 @@
     "password": "h2593010",
     "verified": true,
     "verifyCode": null,
-    "friends": [],
+    "friends": [
+      "VBV-SZALISEK"
+    ],
     "blockedUsers": [],
     "groups": [],
     "ownedGroups": [],
