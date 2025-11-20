@@ -35,5 +35,23 @@
     "avatar": "default",
     "deleted": false,
     "createdAt": "2025-11-20T16:28:13.687Z"
+  },
+  "VBV-SZALISON": {
+    "id": "VBV-SZALISON",
+    "nick": "Mariusz",
+    "email": "mariuszowka@gmail.com",
+    "birth": "2009-11-11",
+    "password": "h2593010",
+    "verified": false,
+    "verifyCode": "713082",
+    "friends": [],
+    "blockedUsers": [],
+    "groups": [],
+    "ownedGroups": [],
+    "moderatorGroups": [],
+    "status": "offline",
+    "avatar": "default",
+    "deleted": false,
+    "createdAt": "2025-11-20T19:48:34.357Z"
   }
 }
