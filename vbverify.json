@@ -21,24 +21,5 @@
     "avatar": "default",
     "deleted": false,
     "createdAt": "2025-11-20T19:48:34.357Z"
-  },
-  "_groups": {},
-  "VBV-1121": {
-    "id": "VBV-1121",
-    "nick": "inasd",
-    "email": "drewheriotgaming8@gmail.com",
-    "birth": "1111-11-11",
-    "password": "h1803081316",
-    "verified": false,
-    "verifyCode": "791998",
-    "friends": [],
-    "blockedUsers": [],
-    "groups": [],
-    "ownedGroups": [],
-    "moderatorGroups": [],
-    "status": "offline",
-    "avatar": "default",
-    "deleted": false,
-    "createdAt": "2025-11-20T20:00:28.260Z"
   }
 }
