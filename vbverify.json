@@ -61,7 +61,9 @@
     "friends": [
       "VBV-SZALISON"
     ],
-    "blockedUsers": [],
+    "blockedUsers": [
+      "VBV-SZALISON"
+    ],
     "groups": [
       "GRP-883029",
       "GRP-463713"
