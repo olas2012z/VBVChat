@@ -256,5 +256,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1763719257232-4851",
+    "from": "VBV-SZALISEK",
+    "to": "VBV-SZALISON",
+    "group": null,
+    "text": "[Wysłano plik]",
+    "type": "file",
+    "time": "2025-11-21T10:00:57.232Z",
+    "fileId": "FILE-1763719253507-6771",
+    "fileName": "uploads_FILE-1763716377983-9111__5197877235810304__2_.wav",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1763719253507-6771__uploads_FILE-1763716377983-9111__5197877235810304__2_.wav"
   }
 ]
