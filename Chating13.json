@@ -160,5 +160,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1763716099069-7344",
+    "from": "VBV-SZALISON",
+    "to": "VBV-SZALISEK",
+    "group": null,
+    "text": "halo",
+    "type": "text",
+    "time": "2025-11-21T09:08:19.069Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
