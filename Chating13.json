@@ -70,5 +70,14 @@
     "text": "[Rozpoczęto połączenie]",
     "type": "call",
     "time": "2025-11-21T08:10:58.789Z"
+  },
+  {
+    "id": "MSG-1763712863593-6330",
+    "from": "VBV-SZALISON",
+    "to": "VBV-SZALISEK",
+    "group": null,
+    "text": "hmmm",
+    "type": "text",
+    "time": "2025-11-21T08:14:23.593Z"
   }
 ]
