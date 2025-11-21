@@ -268,5 +268,17 @@
     "fileId": "FILE-1763719253507-6771",
     "fileName": "uploads_FILE-1763716377983-9111__5197877235810304__2_.wav",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1763719253507-6771__uploads_FILE-1763716377983-9111__5197877235810304__2_.wav"
+  },
+  {
+    "id": "MSG-1763738845355-1554",
+    "from": "VBV-SZALISON",
+    "to": "VBV-SZALISEK",
+    "group": null,
+    "text": "Siemanko",
+    "type": "text",
+    "time": "2025-11-21T15:27:25.355Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
