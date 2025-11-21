@@ -56,6 +56,7 @@
     "status": "online",
     "avatar": "default",
     "deleted": false,
-    "createdAt": "2025-11-20T20:02:49.601Z"
+    "createdAt": "2025-11-20T20:02:49.601Z",
+    "banned": false
   }
 }
