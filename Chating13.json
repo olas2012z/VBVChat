@@ -220,5 +220,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1763719223555-5313",
+    "from": "VBV-SZALISON",
+    "to": "VBV-SZALISEK",
+    "group": null,
+    "text": "[Rozpoczęto połączenie ]",
+    "type": "call",
+    "time": "2025-11-21T10:00:23.555Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
