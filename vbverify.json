@@ -20,7 +20,8 @@
     "status": "online",
     "avatar": "default",
     "deleted": false,
-    "createdAt": "2025-11-20T19:48:34.357Z"
+    "createdAt": "2025-11-20T19:48:34.357Z",
+    "banned": false
   },
   "_groups": {
     "GRP-883029": {
