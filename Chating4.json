@@ -22,5 +22,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1763716323211-3901",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-883029",
+    "text": "[Wysłano zdjęcie]",
+    "type": "photo",
+    "time": "2025-11-21T09:12:03.211Z",
+    "fileId": "FILE-1763716321924-2184",
+    "fileName": "IMG_20251016_124130.jpg",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1763716321924-2184__IMG_20251016_124130.jpg"
   }
 ]
