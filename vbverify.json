@@ -14,8 +14,12 @@
       "VBV-SZALISEK"
     ],
     "blockedUsers": [],
-    "groups": [],
-    "ownedGroups": [],
+    "groups": [
+      "GRP-463713"
+    ],
+    "ownedGroups": [
+      "GRP-463713"
+    ],
     "moderatorGroups": [],
     "status": "online",
     "avatar": "default",
@@ -33,6 +37,16 @@
         "VBV-SZALISEK"
       ],
       "createdAt": "2025-11-21T07:21:21.371Z"
+    },
+    "GRP-463713": {
+      "id": "GRP-463713",
+      "name": "Szaliskowo",
+      "owner": "VBV-SZALISON",
+      "moderators": [],
+      "members": [
+        "VBV-SZALISON"
+      ],
+      "createdAt": "2025-11-21T08:11:46.598Z"
     }
   },
   "VBV-SZALISEK": {
