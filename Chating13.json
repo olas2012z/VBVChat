@@ -124,5 +124,17 @@
     "fileId": "FILE-1763713434027-9425",
     "fileName": "Voxel_inst_1.19v (1).exe",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1763713434027-9425__Voxel_inst_1.19v__1_.exe"
+  },
+  {
+    "id": "MSG-1763715952077-843",
+    "from": "VBV-SZALISEK",
+    "to": "VBV-SZALISON",
+    "group": null,
+    "text": "[Rozpoczęto połączenie]",
+    "type": "call",
+    "time": "2025-11-21T09:05:52.077Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
