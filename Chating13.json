@@ -25,5 +25,14 @@
     "text": "co u ciebie",
     "type": "text",
     "time": "2025-11-21T08:08:31.454Z"
+  },
+  {
+    "id": "MSG-1763712525419-4626",
+    "from": "VBV-SZALISON",
+    "to": "VBV-SZALISEK",
+    "group": null,
+    "text": "[Wysłano zdjęcie]",
+    "type": "photo",
+    "time": "2025-11-21T08:08:45.419Z"
   }
 ]
