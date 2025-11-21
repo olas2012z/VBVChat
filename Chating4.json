@@ -34,5 +34,17 @@
     "fileId": "FILE-1763716321924-2184",
     "fileName": "IMG_20251016_124130.jpg",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1763716321924-2184__IMG_20251016_124130.jpg"
+  },
+  {
+    "id": "MSG-1763716381735-3946",
+    "from": "VBV-SZALISEK",
+    "to": null,
+    "group": "GRP-883029",
+    "text": "[Wysłano nagranie głosowe]",
+    "type": "voice",
+    "time": "2025-11-21T09:13:01.735Z",
+    "fileId": "FILE-1763716377983-9111",
+    "fileName": "5197877235810304 (2).wav",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1763716377983-9111__5197877235810304__2_.wav"
   }
 ]
