@@ -52,5 +52,14 @@
     "text": "[Wysłano plik]",
     "type": "file",
     "time": "2025-11-21T08:08:56.725Z"
+  },
+  {
+    "id": "MSG-1763712656412-9232",
+    "from": "VBV-SZALISON",
+    "to": "VBV-SZALISEK",
+    "group": null,
+    "text": "[Rozpoczęto połączenie]",
+    "type": "call",
+    "time": "2025-11-21T08:10:56.412Z"
   }
 ]
