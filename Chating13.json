@@ -43,5 +43,14 @@
     "text": "[Wysłano nagranie głosowe]",
     "type": "voice",
     "time": "2025-11-21T08:08:50.688Z"
+  },
+  {
+    "id": "MSG-1763712536725-5814",
+    "from": "VBV-SZALISON",
+    "to": "VBV-SZALISEK",
+    "group": null,
+    "text": "[Wysłano plik]",
+    "type": "file",
+    "time": "2025-11-21T08:08:56.725Z"
   }
 ]
