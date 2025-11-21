@@ -15,7 +15,8 @@
     ],
     "blockedUsers": [],
     "groups": [
-      "GRP-463713"
+      "GRP-463713",
+      "GRP-883029"
     ],
     "ownedGroups": [
       "GRP-463713"
@@ -34,7 +35,8 @@
       "owner": "VBV-SZALISEK",
       "moderators": [],
       "members": [
-        "VBV-SZALISEK"
+        "VBV-SZALISEK",
+        "VBV-SZALISON"
       ],
       "createdAt": "2025-11-21T07:21:21.371Z"
     },
