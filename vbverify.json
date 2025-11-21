@@ -22,7 +22,18 @@
     "deleted": false,
     "createdAt": "2025-11-20T19:48:34.357Z"
   },
-  "_groups": {},
+  "_groups": {
+    "GRP-883029": {
+      "id": "GRP-883029",
+      "name": "Szalis",
+      "owner": "VBV-SZALISEK",
+      "moderators": [],
+      "members": [
+        "VBV-SZALISEK"
+      ],
+      "createdAt": "2025-11-21T07:21:21.371Z"
+    }
+  },
   "VBV-SZALISEK": {
     "id": "VBV-SZALISEK",
     "nick": "Szalis",
@@ -35,8 +46,12 @@
       "VBV-SZALISON"
     ],
     "blockedUsers": [],
-    "groups": [],
-    "ownedGroups": [],
+    "groups": [
+      "GRP-883029"
+    ],
+    "ownedGroups": [
+      "GRP-883029"
+    ],
     "moderatorGroups": [],
     "status": "online",
     "avatar": "default",
