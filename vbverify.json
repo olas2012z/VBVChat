@@ -21,7 +21,9 @@
     "ownedGroups": [
       "GRP-463713"
     ],
-    "moderatorGroups": [],
+    "moderatorGroups": [
+      "GRP-883029"
+    ],
     "status": "online",
     "avatar": "default",
     "deleted": false,
@@ -33,7 +35,9 @@
       "id": "GRP-883029",
       "name": "Szalis",
       "owner": "VBV-SZALISEK",
-      "moderators": [],
+      "moderators": [
+        "VBV-SZALISON"
+      ],
       "members": [
         "VBV-SZALISEK",
         "VBV-SZALISON"
