@@ -2,7 +2,18 @@
   "_meta": {
     "blockedEmails": []
   },
-  "_groups": {},
+  "_groups": {
+    "GRP-264387": {
+      "id": "GRP-264387",
+      "name": "Szaliski",
+      "owner": "VBV-SZALISON",
+      "moderators": [],
+      "members": [
+        "VBV-SZALISON"
+      ],
+      "createdAt": "2025-11-22T19:20:52.164Z"
+    }
+  },
   "VBV-SZALISON": {
     "id": "VBV-SZALISON",
     "nick": "Szalis",
@@ -13,8 +24,12 @@
     "verifyCode": null,
     "friends": [],
     "blockedUsers": [],
-    "groups": [],
-    "ownedGroups": [],
+    "groups": [
+      "GRP-264387"
+    ],
+    "ownedGroups": [
+      "GRP-264387"
+    ],
     "moderatorGroups": [],
     "status": "online",
     "avatar": "default",
