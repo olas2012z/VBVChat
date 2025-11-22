@@ -1,1 +1,25 @@
-
+{
+  "_meta": {
+    "blockedEmails": []
+  },
+  "_groups": {},
+  "VBV-SZALISON": {
+    "id": "VBV-SZALISON",
+    "nick": "Szalis",
+    "email_enc": "U2FsdGVkX19fWPsR4W/7XV2eHdepl1qJlFvemALwxNB76oK3VFbklaNxjzf5fNxo",
+    "birth_enc": "U2FsdGVkX1/XgnuHpES+YWzYcBtbjQ+PzUHcmDblW98=",
+    "password": "h2593010",
+    "verified": false,
+    "verifyCode": "342324",
+    "friends": [],
+    "blockedUsers": [],
+    "groups": [],
+    "ownedGroups": [],
+    "moderatorGroups": [],
+    "status": "offline",
+    "avatar": "default",
+    "deleted": false,
+    "banned": false,
+    "createdAt": "2025-11-22T19:18:09.864Z"
+  }
+}
