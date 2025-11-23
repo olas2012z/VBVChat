@@ -10,5 +10,16 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1763889326869-9328",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "[GIF] BirthDay Cat.gif",
+    "type": "gif",
+    "time": "2025-11-23T09:15:26.869Z",
+    "fileName": "BirthDay Cat.gif",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/gifs/GIF-1763889319871-4285__24q5.gif"
   }
 ]
