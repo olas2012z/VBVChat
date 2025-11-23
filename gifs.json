@@ -1,14 +1,11 @@
-{
-  "public": [
-    {
-      "id": "GIF-1763889319871-4285",
-      "name": "BirthDay Cat.gif",
-      "url": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/gifs/GIF-1763889319871-4285__24q5.gif",
-      "creatorId": "VBV-SZALISON",
-      "category": "Urodziny",
-      "createdAt": "2025-11-23T09:15:23.942Z"
-    }
-  ],
-  "private": {},
-  "_reports": []
-}
+[
+  {
+    "id": "FILE-1763890031422-3612",
+    "title": "BirthDay Cat",
+    "category": "Urodziny",
+    "url": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1763890031422-3612__24q5.gif",
+    "owner": "VBV-SZALISON",
+    "ownerNick": "Szalis",
+    "createdAt": "2025-11-23T09:27:15.447Z"
+  }
+]
