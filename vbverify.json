@@ -1,6 +1,7 @@
 {
   "_meta": {
-    "blockedEmails": []
+    "blockedEmails": [],
+    "_reports": {}
   },
   "_groups": {
     "GRP-264387": {
@@ -35,6 +36,7 @@
     "avatar": "default",
     "deleted": false,
     "banned": false,
-    "createdAt": "2025-11-22T19:18:09.864Z"
+    "createdAt": "2025-11-22T19:18:09.864Z",
+    "bannedUntil": null
   }
 }
