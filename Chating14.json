@@ -129,5 +129,17 @@
     "fileId": "GIF-1764084585451-2868",
     "fileName": "Star",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764084584265-9138__ZNec.gif"
+  },
+  {
+    "id": "MSG-1764084913049-8482",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "[GIF] Nyan Cat",
+    "type": "gif",
+    "time": "2025-11-25T15:35:13.049Z",
+    "fileId": "GIF-1764084904801-5100",
+    "fileName": "Nyan Cat",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764084903753-7864__PYh.gif"
   }
 ]
