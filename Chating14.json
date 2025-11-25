@@ -141,5 +141,17 @@
     "fileId": "GIF-1764084904801-5100",
     "fileName": "Nyan Cat",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764084903753-7864__PYh.gif"
+  },
+  {
+    "id": "MSG-1764085026110-9039",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "[GIF] Flying Money",
+    "type": "gif",
+    "time": "2025-11-25T15:37:06.110Z",
+    "fileId": "GIF-1764084980801-4537",
+    "fileName": "Flying Money",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764084979809-4286__xt.gif"
   }
 ]
