@@ -105,5 +105,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1764084592205-7287",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "[GIF] Star",
+    "type": "gif",
+    "time": "2025-11-25T15:29:52.205Z",
+    "fileId": "GIF-1764084585451-2868",
+    "fileName": "Star",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764084584265-9138__ZNec.gif"
   }
 ]
