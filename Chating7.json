@@ -22,5 +22,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1764318518181-870",
+    "from": "VBV-ALEN",
+    "to": "VBV-SZALISON",
+    "group": null,
+    "text": "[GIF] Nyan Cat",
+    "type": "gif",
+    "time": "2025-11-28T08:28:38.181Z",
+    "fileId": "GIF-1764084904801-5100",
+    "fileName": "Nyan Cat",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764084903753-7864__PYh.gif"
   }
 ]
