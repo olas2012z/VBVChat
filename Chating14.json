@@ -249,5 +249,17 @@
     "fileId": "GIF-1764318060005-7550",
     "fileName": "Running sonic",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764318055322-9888__5IPd.gif"
+  },
+  {
+    "id": "MSG-1764318216669-6420",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "[GIF] Click Button",
+    "type": "gif",
+    "time": "2025-11-28T08:23:36.669Z",
+    "fileId": "GIF-1764318136367-5148",
+    "fileName": "Click Button",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764318135164-8258__7Ng0.gif"
   }
 ]
