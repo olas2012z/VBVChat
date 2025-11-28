@@ -18,7 +18,8 @@
       "owner": "VBV-SZALISON",
       "moderators": [],
       "members": [
-        "VBV-SZALISON"
+        "VBV-SZALISON",
+        "VBV-ALEN"
       ],
       "createdAt": "2025-11-22T19:20:52.164Z"
     }
@@ -61,7 +62,9 @@
       "VBV-SZALISON"
     ],
     "blockedUsers": [],
-    "groups": [],
+    "groups": [
+      "GRP-264387"
+    ],
     "ownedGroups": [],
     "moderatorGroups": [],
     "status": "online",
