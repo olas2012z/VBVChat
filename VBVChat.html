@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>VBVchat Retro 2006</title>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  emailjs.init("wrOHP0xv14GUFHuWE"); // Twój public key
+});
+</script>
+
+<!-- CryptoJS do szyfrowania maila/dat -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
+<style>
+  body{
+    margin:0;
+    background:#2c5e9b;
+    font-family:Verdana,Arial,sans-serif;
+    font-size:12px;
+    color:#000;
+  }
+  #wrapper{
+    width:900px;
+    margin:20px auto;
+    background:#ffffff;
+    border:1px solid #20426d;
+  }
+  #header{
+    background:#20426d;
+    color:#ffffff;
+    padding:6px 10px;
+    font-size:14px;
+    font-weight:bold;
+  }
+  #subheader{
+    background:#e3e8f5;
+    padding:4px 10px;
+    font-size:11px;
+  }
+  #content{
+    padding:10px;
+  }
+  .panel{
+    border:1px solid #9fb4d9;
+    background:#f5f7ff;
+    padding:6px;
+    margin-bottom:8px;
+  }
+  .panel h3{
+    margin:0 0 4px;
+    font-size:12px;
+    background:#d3dcf5;
+    padding:3px 4px;
+    border-bottom:1px solid #9fb4d9;
+  }
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="date"]{
+    width:95%;
+    border:1px solid #a0a0a0;
+    font-size:11px;
+    padding:2px 3px;
+  }
+  button{
+    font-size:11px;
+    padding:3px 8px;
+    margin-top:4px;
+    cursor:pointer;
+  }
+  .status{
+    font-size:11px;
+    margin-top:4px;
+  }
+  .status.ok{ color:#006600; }
+  .status.err{ color:#aa0000; }
+
+  #authArea, #appArea{
+    display:none;
+  }
+
+  .list-box{
+    border:1px solid #cccccc;
+    background:#ffffff;
+    max-height:200px;
+    overflow:auto;
+    font-size:11px;
+  }
+  .list-item{
+    padding:3px 4px;
+    border-bottom:1px solid #eeeeee;
+    cursor:pointer;
+  }
+  .list-item:hover{
+    background:#e3e8f5;
+  }
+  .list-item .id{
+    color:#555;
+    font-size:10px;
+  }
+  .list-item.selected{
+    background:#d3dcf5 !important;
+  }
+
+  #footer{
+    background:#f0f0f0;
+    text-align:center;
+    font-size:10px;
+    padding:4px 0;
+    border-top:1px solid #cccccc;
+    margin-top:4px;
+  }
+
+  .label{
+    font-size:11px;
+    margin-top:3px;
+  }
+  .small{
+    font-size:10px;
+  }
+
+  .separator{
+    border-top:1px solid #cccccc;
+    margin:6px 0;
+  }
+
+  /* layout appki */
+  #appLayout{
+    display:flex;
+  }
+  #sidebar{
+    width:180px;
+    padding:4px 6px;
+    background:#e3e8f5;
+    border-right:1px solid #9fb4d9;
+  }
+  #mainPanel{
+    flex:1;
+    padding:0 6px;
+  }
+  .navBtn{
+    display:block;
+    width:100%;
+    margin:3px 0;
+  }
+  .viewPanel{
+    margin-top:4px;
+  }
+
+  .authTabs{
+    text-align:center;
+  }
+  .authTabs button{
+    width:120px;
+    margin:4px 6px 0 6px;
+  }
+
+  /* chat */
+  #chatLayout{
+    display:flex;
+    gap:8px;
+  }
+  #chatSidebar{
+    width:210px;
+  }
+  #chatMain{
+    flex:1;
+  }
+
+  #chatMessages{
+    border:1px solid #cccccc;
+    background:#ffffff;
+    height:220px;
+    overflow:auto;
+    font-size:11px;
+    padding:4px;
+  }
+  .msg{
+    margin-bottom:4px;
+  }
+  .msg.me{
+    text-align:right;
+  }
+  .msg .meta{
+    color:#666;
+    font-size:9px;
+    margin-bottom:1px;
+  }
+  .msg .bubble{
+    display:inline-block;
+    padding:2px 4px;
+    border-radius:3px;
+    background:#e3e8f5;
+    max-width:90%;
+    text-align:left;
+  }
+  .msg.me .bubble{
+    background:#d0f0ff;
+  }
+  #chatInputRow{
+    margin-top:4px;
+  }
+  #chatText{
+    width:98%;
+  }
+</style>
+</head>
+<body>
+
+<div id="wrapper">
+  <div id="header">
+    VBVchat Retro 2006 – Beta
+  </div>
+  <div id="subheader">
+    Oldschool komunikator z ID, grupami, weryfikacją mailem, znajomymi, blokowaniem i GIF-ami.
+  </div>
+
+  <div id="content">
+    <!-- AUTORYZACJA -->
+    <div id="authArea">
+      <div class="panel">
+        <h3>Logowanie / Rejestracja</h3>
+        <div class="small">
+          Najpierw załóż konto albo zaloguj się, potem wpisz kod z maila (przy nowym koncie).
+        </div>
+        <div class="authTabs">
+          <button onclick="setAuthMode('login')">🔑 Login</button>
+          <button onclick="setAuthMode('register')">📝 Register</button>
+        </div>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="authLoginPanel" class="panel">
+        <h3>Logowanie</h3>
+        <div class="label">E-mail lub ID:</div>
+        <input type="text" id="loginUser">
+
+        <div class="label">Hasło:</div>
+        <input type="password" id="loginPass" autocomplete="current-password" placeholder="••••••••">
+
+        <button onclick="login()">Zaloguj</button>
+        <div id="loginStatus" class="status"></div>
+      </div>
+
+      <!-- REJESTRACJA -->
+      <div id="authRegisterPanel" class="panel" style="display:none;">
+        <h3>Rejestracja nowego konta</h3>
+        <div class="label">Nick:</div>
+        <input type="text" id="regNick">
+
+        <div class="label">E-mail:</div>
+        <input type="email" id="regEmail">
+
+        <div class="label">Hasło:</div>
+        <input type="password" id="regPass" autocomplete="new-password" placeholder="••••••••">
+
+        <div class="label">Data urodzenia:</div>
+        <input type="date" id="regBirth">
+
+        <div class="label">ID (opcjonalnie, zostanie wygenerowane jeśli puste):</div>
+        <input type="text" id="regId" placeholder="np. VBV-123456">
+
+        <div class="label">
+          <input type="checkbox" id="regCaptcha"> Nie jestem robotem 😎
+        </div>
+
+        <button onclick="register()">Załóż konto</button>
+        <div id="regStatus" class="status"></div>
+      </div>
+
+      <!-- WERYFIKACJA -->
+      <div id="authVerifyPanel" class="panel">
+        <h3>Weryfikacja kodem (z maila)</h3>
+        <div class="label">E-mail lub ID:</div>
+        <input type="text" id="verUser">
+
+        <div class="label">Kod weryfikacyjny (6 cyfr):</div>
+        <input type="text" id="verCode">
+
+        <button onclick="verifyCode()">Zatwierdź kod</button>
+        <div id="verifyStatus" class="status"></div>
+
+        <div class="small" style="margin-top:4px;">
+          Przy tworzeniu konta wysyłamy kod mailem – bez niego nikt się nie włamie.
+        </div>
+      </div>
+    </div>
+
+    <!-- APLIKACJA -->
+    <div id="appArea">
+      <div id="appLayout">
+        <!-- LEWE MENU -->
+        <div id="sidebar">
+          <div class="panel">
+            <h3>Menu</h3>
+            <button class="navBtn" onclick="showView('profile')">Profil</button>
+            <button class="navBtn" onclick="showView('friends')">Znajomi / Blokowani</button>
+            <button class="navBtn" onclick="showView('groups')">Grupy</button>
+            <button class="navBtn" onclick="showView('chat')">Czat</button>
+            <button class="navBtn" onclick="requestNotificationPermission()">🔔 Zezwól na powiadomienia</button>
+          </div>
+          <div class="panel">
+            <h3>Aktualny użytkownik</h3>
+            <div id="sidebarUserInfo" class="small">brak</div>
+          </div>
+        </div>
+
+        <!-- GŁÓWNA CZĘŚĆ -->
+        <div id="mainPanel">
+          <!-- PROFIL -->
+          <div id="viewProfile" class="viewPanel">
+            <div class="panel">
+              <h3>Twój profil</h3>
+              <div id="profInfo" class="small">(brak danych)</div>
+            </div>
+          </div>
+
+          <!-- ZNAJOMI + BLOKOWANI -->
+          <div id="viewFriends" class="viewPanel" style="display:none;">
+            <div class="panel">
+              <h3>Znajomi</h3>
+              <div class="label">Dodaj znajomego (ID lub e-mail):</div>
+              <input type="text" id="friendInput">
+              <button onclick="addFriendAction()">Dodaj znajomego</button>
+
+              <div class="separator"></div>
+              <div class="label">Twoi znajomi:</div>
+              <div id="friendsList" class="list-box"></div>
+              <button onclick="removeFriendAction()">Usuń zaznaczonego</button>
+              <div id="friendsStatus" class="status"></div>
+            </div>
+
+            <div class="panel">
+              <h3>Blokowani</h3>
+              <div class="label">Zablokuj użytkownika (ID lub e-mail):</div>
+              <input type="text" id="blockInput">
+              <button onclick="blockUserAction()">Zablokuj</button>
+
+              <div class="separator"></div>
+              <div class="label">Zablokowani przez Ciebie:</div>
+              <div id="blockedList" class="list-box"></div>
+              <button onclick="unblockUserAction()">Odblokuj zaznaczonego</button>
+              <div id="blockStatus" class="status"></div>
+            </div>
+          </div>
+
+          <!-- GRUPY -->
+          <div id="viewGroups" class="viewPanel" style="display:none;">
+            <div class="panel">
+              <h3>Grupy</h3>
+              <table width="100%" cellpadding="2" cellspacing="0">
+                <tr>
+                  <td width="50%" style="vertical-align:top;">
+                    <div class="label">Nowa grupa – nazwa:</div>
+                    <input type="text" id="groupName">
+                    <button onclick="createGroupAction()">Stwórz grupę</button>
+
+                    <div class="separator"></div>
+                    <div class="label">Twoje grupy (członkostwo):</div>
+                    <div id="groupsList" class="list-box"></div>
+                  </td>
+                  <td width="50%" style="vertical-align:top;">
+                    <div class="label">Szczegóły grupy:</div>
+                    <div id="groupDetails" class="small">(Wybierz grupę z listy)</div>
+
+                    <div class="separator"></div>
+                    <div class="label">Dodaj członka (ID lub e-mail):</div>
+                    <input type="text" id="groupMemberInput">
+                    <button onclick="addGroupMemberAction()">Dodaj do grupy</button>
+
+                    <div class="label">Ustaw moderatora (ID):</div>
+                    <input type="text" id="groupModInput">
+                    <button onclick="setModeratorAction()">Ustaw moderatora</button>
+
+                    <div class="label">Usuń członka (ID):</div>
+                    <input type="text" id="groupKickInput">
+                    <button onclick="kickMemberAction()">Wywal z grupy</button>
+
+                    <div id="groupsStatus" class="status"></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- CZAT + GIF-Y -->
+          <div id="viewChat" class="viewPanel" style="display:none;">
+            <div class="panel">
+              <h3>Czat / Wiadomości</h3>
+              <div id="chatLayout">
+                <div id="chatSidebar">
+                  <div class="label">Znajomi (kliknij aby rozpocząć rozmowę):</div>
+                  <div id="chatFriendsList" class="list-box"></div>
+
+                  <div class="separator"></div>
+                  <div class="label">Twoje grupy:</div>
+                  <div id="chatGroupsList" class="list-box"></div>
+                </div>
+                <div id="chatMain">
+                  <div class="label"><b>Aktualna rozmowa:</b> <span id="chatTargetLabel">(nie wybrano)</span></div>
+                  <div id="chatMessages"></div>
+                  <div id="chatInputRow">
+                    <div class="label">Napisz wiadomość:</div>
+                    <input type="text" id="chatText">
+                    <div>
+                      <button onclick="sendChatText()">Wyślij tekst</button>
+                      <button onclick="triggerFileSelect('photo')">Zdjęcie</button>
+                      <button onclick="triggerFileSelect('file')">Plik</button>
+                      <button onclick="triggerFileSelect('voice')">Nagranie głosowe</button>
+                      <button onclick="startGifSend()">GIF</button>
+                      <button onclick="sendCall()">Zadzwoń</button>
+                    </div>
+                    <!-- ukryte inputy plików -->
+                    <input type="file" id="filePhoto" accept="image/*" style="display:none">
+                    <input type="file" id="fileFile" style="display:none">
+                    <input type="file" id="fileVoice" accept="audio/*" style="display:none">
+
+                    <div id="chatStatus" class="status"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL GIF-ÓW (DOMYŚLNIE UKRYTY) -->
+              <div id="gifPanel" class="panel" style="display:none; margin-top:8px;">
+                <h3>GIF-y</h3>
+                <div style="margin-bottom:4px; overflow:hidden;">
+                  <label>
+                    <input type="radio" name="gifScope" value="global" checked onchange="renderGifList()"> Globalne
+                  </label>
+                  <label style="margin-left:6px;">
+                    <input type="radio" name="gifScope" value="mine" onchange="renderGifList()"> Moje
+                  </label>
+                  <input type="text" id="gifSearch" placeholder="Szukaj po nazwie/kategorii" style="width:180px;margin-left:8px;font-size:11px;" oninput="renderGifList()">
+                  <span id="gifCountLabel" class="small" style="margin-left:6px;">(0 znalezionych)</span>
+                  <button style="float:right;" onclick="toggleGifUpload()">+ Dodaj GIF</button>
+                </div>
+                <div id="gifUploadRow" style="display:none;margin-bottom:4px;">
+                  <input type="file" id="gifFileInput" accept="image/gif">
+                  <input type="text" id="gifTitleInput" placeholder="Tytuł GIF-a" style="width:150px;font-size:11px;">
+                  <input type="text" id="gifCategoryInput" placeholder="Kategoria (np. urodziny)" style="width:150px;font-size:11px;">
+                  <button onclick="uploadGif()">Wyślij GIF</button>
+                  <div id="gifUploadStatus" class="status"></div>
+                </div>
+                <div id="gifList" class="list-box" style="height:120px;"></div>
+                <div id="gifInfo" class="small" style="margin-top:4px;">Kliknij GIF z listy, aby zobaczyć podgląd.</div>
+              </div>
+
+              <div class="small" style="margin-top:6px;">
+                System sprawdza blokady – jeśli <b>Ty blokujesz</b> albo <b>on blokuje Ciebie</b> – wiadomość nie zostanie wysłana.
+              </div>
+            </div>
+          </div>
+
+        </div> <!-- mainPanel -->
+      </div> <!-- appLayout -->
+    </div> <!-- appArea -->
+  </div>
+
+  <div id="footer">
+    VBVchat Retro 2006 &copy; 2006–2025 • Stary styl, nowe możliwości
+  </div>
+</div>
+
+<script>
+// ===== „UKRYWACZE” – szyfrowanie maila i daty (AES) =====
+const SECRET_KEY = "VBVCHAT_SUPER_TAJNY_KLUCZ_32_ZNAKI";
+
+function encryptField(value){
+  try{ return CryptoJS.AES.encrypt(value, SECRET_KEY).toString(); }
+  catch(e){ console.error("Encrypt error", e); return null; }
+}
+function decryptField(cipher){
+  try{
+    const bytes = CryptoJS.AES.decrypt(cipher, SECRET_KEY);
+    return bytes.toString(CryptoJS.enc.Utf8);
+  }catch(e){
+    console.error("Decrypt error", e);
+    return null;
+  }
+}
+
+function getUserEmail(user){
+  if(!user) return "";
+  if(user.email_enc){
+    const dec = decryptField(user.email_enc);
+    return dec || "";
+  }
+  return user.email || "";
+}
+
+function getUserBirth(user){
+  if(!user) return "";
+  if(user.birth_enc){
+    const dec = decryptField(user.birth_enc);
+    return dec || "";
+  }
+  return user.birth || "";
+}
+
+// ===== KONFIG GITHUB =====
+const GITHUB_TOKEN      = "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";
+const GITHUB_OWNER      = "olas2012z";
+const GITHUB_REPO       = "VBVChat";
+const GITHUB_FILE_PATH  = "vbverify.json";
+const GITHUB_UPLOAD_DIR = "uploads";   // zdjęcia/pliki/głos
+const GITHUB_GIF_DIR    = "gifs";      // pliki GIF
+const GITHUB_GIF_META   = "gifs/gifs.json"; // opis GIF-ów
+
+// pliki czatu – serwownia
+const CHAT_FILES = [
+  "Chating.json","Chating2.json","Chating3.json","Chating4.json","Chating5.json",
+  "Chating6.json","Chating7.json","Chating8.json","Chating9.json","Chating10.json",
+  "Chating11.json","Chating12.json","Chating13.json","Chating14.json","Chating15.json",
+  "Chating16.json","Chating17.json","Chating18.json","Chating19.json","Chating20.json"
+];
+
+let vbData = null;
+let vbSha  = null;
+let currentId = null;
+let selectedFriendId = null;
+let selectedBlockedId = null;
+let selectedGroupId = null;
+
+const chatData   = {};
+const chatSha    = {};
+const chatLoaded = {};
+
+let currentChatTargetType = null; // "user" | "group"
+let currentChatTargetId   = null;
+
+let chatAutoTimer = null;
+const lastNotifiedMsgIds = {};
+
+// GIF-y
+let gifsMeta = [];
+let gifsMetaSha = null;
+let gifsLoaded = false;
+let gifSendMode = false;
+let selectedGifId = null;
+let selectedGifObj = null; // <--- aktualnie wybrany GIF
+
+// ===== UTILS =====
+function setText(id, msg, ok=null){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.textContent = msg || "";
+  el.classList.remove("ok","err");
+  if(ok === true) el.classList.add("ok");
+  if(ok === false) el.classList.add("err");
+}
+
+// UTF-8 base64 helpers
+function b64EncodeUnicode(str){
+  return btoa(unescape(encodeURIComponent(str)));
+}
+function b64DecodeUnicode(str){
+  return decodeURIComponent(escape(atob(str)));
+}
+
+function simpleHash(txt){
+  let h = 0;
+  for(let i=0;i<txt.length;i++){
+    h = (h<<5) - h + txt.charCodeAt(i);
+    h |= 0;
+  }
+  return "h" + Math.abs(h);
+}
+
+function numericHash(txt){
+  let h = 0;
+  for(let i=0;i<txt.length;i++){
+    h = (h*31 + txt.charCodeAt(i))|0;
+  }
+  return h;
+}
+
+function genVBVId(){
+  const n = Math.floor(100000 + Math.random()*900000);
+  return "VBV-" + n;
+}
+function genGroupId(){
+  const n = Math.floor(100000 + Math.random()*900000);
+  return "GRP-" + n;
+}
+function focusVerifyFor(user){
+  const verUser = document.getElementById("verUser");
+  if(verUser){
+    const email = getUserEmail(user);
+    verUser.value = email || user.id;
+  }
+  window.scrollTo({ top: 220, behavior: "smooth" });
+}
+
+function setAuthMode(mode){
+  document.getElementById("authLoginPanel").style.display    = (mode==="login"?"block":"none");
+  document.getElementById("authRegisterPanel").style.display = (mode==="register"?"block":"none");
+}
+
+// ===== POWIADOMIENIA =====
+function requestNotificationPermission(){
+  if(!("Notification" in window)){
+    alert("Twoja przeglądarka nie obsługuje powiadomień.");
+    return;
+  }
+  if(Notification.permission === "granted"){
+    alert("Powiadomienia są już włączone.");
+    return;
+  }
+  Notification.requestPermission().then(p => {
+    if(p === "granted") alert("Powiadomienia włączone.");
+    else alert("Powiadomienia zostały zablokowane.");
+  });
+}
+
+function showChatNotification(msg){
+  if(!("Notification" in window)) return;
+  if(Notification.permission !== "granted") return;
+  if(!msg || !msg.id) return;
+  if(msg.from === currentId) return;
+  if(lastNotifiedMsgIds[msg.id]) return;
+  lastNotifiedMsgIds[msg.id] = true;
+
+  let title = "";
+  let body  = msg.text || "";
+
+  const fromUser = getUserById(msg.from);
+
+  if(msg.group){
+    const g = vbData._groups[msg.group];
+    title = `Nowa wiadomość w grupie ${g ? g.name : msg.group}`;
+    body = (fromUser ? fromUser.nick : msg.from) + ": " + (msg.text || "");
+  }else{
+    title = `Nowa wiadomość od ${fromUser ? fromUser.nick : msg.from}`;
+  }
+
+  if(msg.type && msg.type !== "text"){
+    if(msg.type === "call"){
+      body = (fromUser ? fromUser.nick : msg.from) + " dzwoni do Ciebie.";
+    }else if(msg.type === "photo"){
+      body += " (zdjęcie)";
+    }else if(msg.type === "voice"){
+      body += " (nagranie głosowe)";
+    }else if(msg.type === "file"){
+      body += " (plik)";
+    }else if(msg.type === "gif"){
+      body += " (GIF)";
+    }
+  }
+
+  try{
+    const n = new Notification(title,{ body });
+    n.onclick = () => window.focus();
+  }catch(e){
+    console.error("Notification error", e);
+  }
+}
+
+// ===== GITHUB – konta =====
+async function loadData(){
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
+  const resp = await fetch(url, {
+    headers:{
+      "Authorization":"Bearer "+GITHUB_TOKEN,
+      "Accept":"application/vnd.github+json"
+    }
+  });
+
+  if(resp.status === 404){
+    vbData = { "_meta": { "blockedEmails": [], "gifReports":[], "msgReports":[] }, "_groups": {} };
+    vbSha = null;
+    return;
+  }
+
+  if(!resp.ok){
+    throw new Error("Błąd GitHub ("+resp.status+") przy odczycie.");
+  }
+
+  const json = await resp.json();
+  vbSha = json.sha || null;
+  const raw = (json.content || "").replace(/\n/g,"");
+  const content = b64DecodeUnicode(raw);
+  try{
+    vbData = JSON.parse(content);
+  }catch(e){
+    vbData = { "_meta": { "blockedEmails": [], "gifReports":[], "msgReports":[] }, "_groups": {} };
+  }
+  if(!vbData._meta) vbData._meta = { "blockedEmails":[], "gifReports":[], "msgReports":[] };
+  if(!vbData._meta.gifReports) vbData._meta.gifReports = [];
+  if(!vbData._meta.msgReports) vbData._meta.msgReports = [];
+  if(!vbData._groups) vbData._groups = {};
+}
+
+async function saveData(message="VBVchat update"){
+  if(!vbData) return;
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
+  const encoded = b64EncodeUnicode(JSON.stringify(vbData,null,2));
+  const body = { message, content: encoded };
+  if(vbSha) body.sha = vbSha;
+
+  const resp = await fetch(url, {
+    method:"PUT",
+    headers:{
+      "Authorization":"Bearer "+GITHUB_TOKEN,
+      "Accept":"application/vnd.github+json"
+    },
+    body: JSON.stringify(body)
+  });
+
+  if(!resp.ok){
+    throw new Error("Błąd zapisu GitHub ("+resp.status+").");
+  }
+
+  const json = await resp.json();
+  vbSha = json.content.sha;
+}
+
+// ===== GITHUB – czat (JSON) =====
+async function loadChatFile(fileName, force=false){
+  if(chatLoaded[fileName] && !force) return;
+
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${fileName}`;
+  const resp = await fetch(url, {
+    headers:{
+      "Authorization":"Bearer "+GITHUB_TOKEN,
+      "Accept":"application/vnd.github+json"
+    }
+  });
+
+  if(resp.status === 404){
+    chatData[fileName] = [];
+    chatSha[fileName]  = null;
+    chatLoaded[fileName] = true;
+    return;
+  }
+
+  if(!resp.ok){
+    throw new Error("Błąd GitHub ("+resp.status+") przy odczycie czatu.");
+  }
+
+  const json = await resp.json();
+  chatSha[fileName] = json.sha || null;
+  const raw = (json.content || "").replace(/\n/g,"");
+  const content = b64DecodeUnicode(raw);
+
+  try{
+    const parsed = JSON.parse(content);
+    chatData[fileName] = Array.isArray(parsed) ? parsed : [];
+  }catch(e){
+    chatData[fileName] = [];
+  }
+  chatLoaded[fileName] = true;
+}
+
+async function saveChatFile(fileName, messageText="VBVchat – new chat message"){
+  if(!chatData[fileName]) chatData[fileName] = [];
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${fileName}`;
+  const encoded = b64EncodeUnicode(JSON.stringify(chatData[fileName],null,2));
+  const body = { message: messageText, content: encoded };
+  if(chatSha[fileName]) body.sha = chatSha[fileName];
+
+  const resp = await fetch(url, {
+    method:"PUT",
+    headers:{
+      "Authorization":"Bearer "+GITHUB_TOKEN,
+      "Accept":"application/vnd.github+json"
+    },
+    body: JSON.stringify(body)
+  });
+
+  if(!resp.ok){
+    throw new Error("Błąd zapisu czatu GitHub ("+resp.status+").");
+  }
+
+  const json = await resp.json();
+  chatSha[fileName] = json.content.sha;
+}
+
+function getChatFileForConversation(kind, myId, targetId){
+  let key;
+  if(kind === "user"){
+    const arr = [myId, targetId].sort();
+    key = "DM:"+arr[0]+"|"+arr[1];
+  }else{
+    key = "GRP:"+targetId;
+  }
+  const idx = Math.abs(numericHash(key)) % CHAT_FILES.length;
+  return CHAT_FILES[idx];
+}
+
+// ===== GITHUB – przesyłanie plików (w tym GIF-ów) =====
+async function uploadFileToGithub(file, kind){
+  const fileId = "FILE-"+Date.now()+"-"+Math.floor(Math.random()*9999);
+  const safeName = file.name.replace(/[^a-z0-9_\-.]/gi, "_");
+  const dir = (kind === "gif" ? GITHUB_GIF_DIR : GITHUB_UPLOAD_DIR);
+  const path = `${dir}/${fileId}__${safeName}`;
+
+  const base64Data = await new Promise((resolve,reject)=>{
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result; // data:...;base64,XXXX
+      const comma = result.indexOf(",");
+      if(comma === -1){
+        reject(new Error("Niepoprawne dane pliku."));
+        return;
+      }
+      resolve(result.substring(comma+1)); // sam base64
+    };
+    reader.onerror = () => reject(new Error("Błąd odczytu pliku."));
+    reader.readAsDataURL(file);
+  });
+
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+  const body = {
+    message: `VBVchat – upload ${kind} ${safeName}`,
+    content: base64Data
+  };
+
+  const resp = await fetch(url, {
+    method:"PUT",
+    headers:{
+      "Authorization":"Bearer "+GITHUB_TOKEN,
+      "Accept":"application/vnd.github+json"
+    },
+    body: JSON.stringify(body)
+  });
+
+  if(!resp.ok){
+    throw new Error("GitHub upload error ("+resp.status+").");
+  }
+
+  const json = await resp.json();
+  let downloadUrl = null;
+  if(json.content && json.content.download_url){
+    downloadUrl = json.content.download_url;
+  }else{
+    downloadUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/main/${path}`;
+  }
+
+  return {
+    fileId,
+    fileName: file.name,
+    fileUrl: downloadUrl,
+    path
+  };
+}
+
+// ===== GIF META (osobny plik) =====
+async function loadGifsMeta(force=false){
+  if(gifsLoaded && !force) return;
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_GIF_META}`;
+  const resp = await fetch(url,{
+    headers:{
+      "Authorization":"Bearer "+GITHUB_TOKEN,
+      "Accept":"application/vnd.github+json"
+    }
+  });
+  if(resp.status === 404){
+    gifsMeta = [];
+    gifsMetaSha = null;
+    gifsLoaded = true;
+    return;
+  }
+  if(!resp.ok) throw new Error("Błąd odczytu GIF meta ("+resp.status+")");
+  const json = await resp.json();
+  gifsMetaSha = json.sha || null;
+  const raw = (json.content||"").replace(/\n/g,"");
+  const content = b64DecodeUnicode(raw);
+  try{
+    gifsMeta = JSON.parse(content);
+    if(!Array.isArray(gifsMeta)) gifsMeta = [];
+  }catch(e){
+    gifsMeta = [];
+  }
+  gifsLoaded = true;
+}
+
+async function saveGifsMeta(message){
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_GIF_META}`;
+  const encoded = b64EncodeUnicode(JSON.stringify(gifsMeta,null,2));
+  const body = { message: message || "VBVchat – update GIF meta", content: encoded };
+  if(gifsMetaSha) body.sha = gifsMetaSha;
+  const resp = await fetch(url,{
+    method:"PUT",
+    headers:{
+      "Authorization":"Bearer "+GITHUB_TOKEN,
+      "Accept":"application/vnd.github+json"
+    },
+    body: JSON.stringify(body)
+  });
+  if(!resp.ok) throw new Error("Błąd zapisu GIF meta ("+resp.status+")");
+  const json = await resp.json();
+  gifsMetaSha = json.content.sha;
+}
+
+// ===== START =====
+(async function init(){
+  document.getElementById("authArea").style.display = "block";
+  setAuthMode("login");
+  try{
+    await loadData();
+    await loadGifsMeta();
+  }catch(e){
+    console.error(e);
+    alert("Błąd ładowania danych z GitHub: "+e.message);
+  }
+})();
+
+// ===== HELPERS =====
+function getUserById(id){
+  if(!vbData) return null;
+  return vbData[id] || null;
+}
+
+function getUserByEmail(email){
+  if(!vbData) return null;
+  const lower = email.toLowerCase();
+  for(const key in vbData){
+    if(key === "_meta" || key === "_groups") continue;
+    const u = vbData[key];
+    if(!u) continue;
+    if(u.email_enc){
+      const dec = decryptField(u.email_enc);
+      if(dec && dec.toLowerCase() === lower) return u;
+    }else if(u.email){
+      if(u.email.toLowerCase() === lower) return u;
+    }
+  }
+  return null;
+}
+
+function ensureUserStruct(user){
+  if(!user) return;
+  if(!user.friends) user.friends = [];
+  if(!user.blockedUsers) user.blockedUsers = [];
+  if(!user.groups) user.groups = [];
+  if(!user.ownedGroups) user.ownedGroups = [];
+  if(!user.moderatorGroups) user.moderatorGroups = [];
+  if(typeof user.deleted === "undefined") user.deleted = false;
+  if(typeof user.banned === "undefined") user.banned = false;
+}
+
+// ===== EMAILJS =====
+function sendVerifyMail(user){
+  const email = getUserEmail(user);
+  const birth = getUserBirth(user);
+
+  console.log("EmailJS: próba wysłania do", email);
+
+  return emailjs.send("service_h0uije9","template_ppij3lk",{
+    nick:       user.nick,
+    user_id:    user.id,
+    user_email: email,
+    birthdate:  birth,
+    time:       new Date().toLocaleString(),
+    code:       user.verifyCode
+  }).then(function(response){
+    console.log("EmailJS OK:", response.status, response.text);
+    return response;
+  }).catch(function(err){
+    console.error("EmailJS ERROR:", err);
+    throw new Error("EmailJS: " + (err && (err.text || err.message || err)));
+  });
+}
+
+// ===== REJESTRACJA =====
+async function register(){
+  const nick  = document.getElementById("regNick").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const pass  = document.getElementById("regPass").value;
+  const birth = document.getElementById("regBirth").value;
+  const idField = document.getElementById("regId");
+  let   id    = idField.value.trim();
+  const cap   = document.getElementById("regCaptcha").checked;
+  setText("regStatus","",null);
+
+  if(!nick || !email || !pass || !birth){
+    setText("regStatus","Wypełnij wszystkie pola.",false);
+    return;
+  }
+  if(!cap){
+    setText("regStatus","Zaznacz, że nie jesteś robotem.",false);
+    return;
+  }
+
+  if(vbData._meta.blockedEmails.includes(email.toLowerCase())){
+    setText("regStatus","Ten e-mail jest globalnie zablokowany.",false);
+    return;
+  }
+
+  const existing = getUserByEmail(email);
+  if(existing){
+    setText("regStatus","Konto z takim mailem już istnieje.",false);
+    return;
+  }
+
+  if(!id){
+    id = genVBVId();
+  }
+  if(!id.toUpperCase().startsWith("VBV-")){
+    id = "VBV-" + id.toUpperCase();
+  }else{
+    id = "VBV-" + id.substring(4).toUpperCase();
+  }
+  idField.value = id;
+
+  if(getUserById(id)){
+    setText("regStatus","Wybrane ID jest już zajęte. Zmień ID.",false);
+    return;
+  }
+
+  const verifyCode = (Math.floor(100000 + Math.random()*900000)).toString();
+
+  const user = {
+    id,
+    nick,
+    email_enc: encryptField(email),
+    birth_enc: encryptField(birth),
+    password: simpleHash(pass),
+    verified:false,
+    verifyCode,
+    friends:[],
+    blockedUsers:[],
+    groups:[],
+    ownedGroups:[],
+    moderatorGroups:[],
+    status:"offline",
+    avatar:"default",
+    deleted:false,
+    banned:false,
+    createdAt:new Date().toISOString()
+  };
+
+  vbData[id] = user;
+
+  try{
+    await saveData("VBVchat – new account");
+    await sendVerifyMail(user);
+
+    document.getElementById("loginUser").value = email;
+
+    setText(
+      "regStatus",
+      "Konto utworzone. Twoje ID: " + user.id +
+      ". Sprawdź e-mail z kodem weryfikacyjnym.",
+      true
+    );
+    focusVerifyFor(user);
+  }catch(e){
+    console.error(e);
+    setText("regStatus","Błąd: "+e.message,false);
+  }
+}
+
+// ===== WERYFIKACJA =====
+async function verifyCode(){
+  const idOrEmail = document.getElementById("verUser").value.trim();
+  const code      = document.getElementById("verCode").value.trim();
+  setText("verifyStatus","",null);
+
+  if(!idOrEmail || !code){
+    setText("verifyStatus","Wpisz ID/email i kod.",false);
+    return;
+  }
+
+  let user = null;
+  if(idOrEmail.toUpperCase().startsWith("VBV-")){
+    user = getUserById(idOrEmail.toUpperCase());
+  }else{
+    user = getUserByEmail(idOrEmail);
+  }
+
+  if(!user){
+    setText("verifyStatus","Nie znaleziono konta.",false);
+    return;
+  }
+
+  if(user.deleted){
+    setText("verifyStatus","To konto jest usunięte.",false);
+    return;
+  }
+  if(user.verified){
+    setText("verifyStatus","Konto jest już zweryfikowane.",true);
+    return;
+  }
+  if(!user.verifyCode){
+    setText("verifyStatus","Brak kodu weryfikacyjnego. Spróbuj założyć konto ponownie.",false);
+    return;
+  }
+  if(user.verifyCode !== code){
+    setText("verifyStatus","Zły kod.",false);
+    return;
+  }
+
+  user.verified = true;
+  user.verifyCode = null;
+
+  try{
+    await saveData("VBVchat – verify account");
+    setText("verifyStatus","Konto zweryfikowane. Możesz się zalogować.",true);
+  }catch(e){
+    setText("verifyStatus","Błąd: "+e.message,false);
+  }
+}
+
+// ===== LOGIN =====
+async function login(){
+  const idOrEmail = document.getElementById("loginUser").value.trim();
+  const pass      = document.getElementById("loginPass").value;
+  setText("loginStatus","",null);
+
+  if(!idOrEmail || !pass){
+    setText("loginStatus","Wpisz login i hasło.",false);
+    return;
+  }
+
+  let user = null;
+  if(idOrEmail.toUpperCase().startsWith("VBV-")){
+    user = getUserById(idOrEmail.toUpperCase());
+  }else{
+    user = getUserByEmail(idOrEmail);
+  }
+
+  if(!user){
+    setText("loginStatus","Nie znaleziono konta.",false);
+    return;
+  }
+  ensureUserStruct(user);
+
+  if(user.deleted){
+    setText("loginStatus","Konto usunięte.",false);
+    return;
+  }
+  if(user.banned){
+    setText("loginStatus","To konto jest ZBANOWANE z platformy.",false);
+    return;
+  }
+  if(simpleHash(pass) !== user.password){
+    setText("loginStatus","Złe hasło.",false);
+    return;
+  }
+  if(!user.verified){
+    setText("loginStatus","Konto niezweryfikowane – wpisz kod z maila poniżej.",false);
+    focusVerifyFor(user);
+    return;
+  }
+
+  currentId = user.id;
+  user.status = "online";
+  try{
+    await saveData("VBVchat – login");
+  }catch(e){ console.error(e); }
+
+  document.getElementById("authArea").style.display = "none";
+  document.getElementById("appArea").style.display  = "block";
+  showView("profile");
+  refreshUI();
+
+  if(chatAutoTimer) clearInterval(chatAutoTimer);
+  chatAutoTimer = setInterval(() => {
+    const chatView = document.getElementById("viewChat");
+    if(
+      currentId &&
+      chatView &&
+      chatView.style.display !== "none" &&
+      currentChatTargetType &&
+      currentChatTargetId
+    ){
+      refreshChatView(true); // timer
+    }
+  }, 1000);
+}
+
+// ===== UI – widoki =====
+function showView(view){
+  document.getElementById("viewProfile").style.display = (view==="profile"?"block":"none");
+  document.getElementById("viewFriends").style.display = (view==="friends"?"block":"none");
+  document.getElementById("viewGroups").style.display  = (view==="groups"?"block":"none");
+  document.getElementById("viewChat").style.display    = (view==="chat"?"block":"none");
+}
+
+// ===== UI REFRESH =====
+function refreshUI(){
+  const user = getUserById(currentId);
+  if(!user) return;
+  ensureUserStruct(user);
+
+  const email = getUserEmail(user);
+  const birth = getUserBirth(user);
+
+  const nickLabel = user.nick + (user.banned ? " <span style='color:#c00'>(ZBANOWANY)</span>" : "");
+  const info = `
+    <b>ID:</b> ${user.id}<br>
+    <b>Nick:</b> ${nickLabel}<br>
+    <b>E-mail:</b> ${email}<br>
+    <b>Data ur.:</b> ${birth}<br>
+    <b>Status:</b> ${user.status}<br>
+    <b>Zweryfikowany:</b> ${user.verified ? "tak" : "nie"}
+  `;
+  document.getElementById("profInfo").innerHTML = info;
+  document.getElementById("sidebarUserInfo").innerHTML = info;
+
+  const fl = document.getElementById("friendsList");
+  fl.innerHTML = "";
+  user.friends.forEach(fid => {
+    const fu = getUserById(fid);
+    if(!fu) return;
+    ensureUserStruct(fu);
+    let label = fu.nick;
+    if(fu.banned) label += " (ZBANOWANY)";
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.onclick = () => {
+      selectedFriendId = fid;
+      [...fl.children].forEach(c=>c.classList.remove("selected"));
+      div.classList.add("selected");
+    };
+    div.innerHTML = label + ` <span class="id">[${fid}]</span>`;
+    fl.appendChild(div);
+  });
+
+  const bl = document.getElementById("blockedList");
+  bl.innerHTML = "";
+  user.blockedUsers.forEach(fid => {
+    const fu = getUserById(fid);
+    let label = fu ? fu.nick : "(nieznany)";
+    if(fu && fu.banned) label += " (ZBANOWANY)";
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.onclick = () => {
+      selectedBlockedId = fid;
+      [...bl.children].forEach(c=>c.classList.remove("selected"));
+      div.classList.add("selected");
+    };
+    div.innerHTML = label + ` <span class="id">[${fid}]</span>`;
+    bl.appendChild(div);
+  });
+
+  const gl = document.getElementById("groupsList");
+  gl.innerHTML = "";
+  user.groups.forEach(gid => {
+    const g = vbData._groups[gid];
+    if(!g) return;
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.onclick = () => {
+      selectedGroupId = gid;
+      [...gl.children].forEach(c=>c.classList.remove("selected"));
+      div.classList.add("selected");
+      showGroupDetails(gid);
+    };
+    div.innerHTML = `${g.name} <span class="id">[${gid}]</span>`;
+    gl.appendChild(div);
+  });
+
+  if(selectedGroupId){
+    showGroupDetails(selectedGroupId);
+  }else{
+    document.getElementById("groupDetails").innerHTML = "(Wybierz grupę z listy)";
+  }
+
+  const cfl = document.getElementById("chatFriendsList");
+  cfl.innerHTML = "";
+  user.friends.forEach(fid => {
+    const fu = getUserById(fid);
+    if(!fu) return;
+    ensureUserStruct(fu);
+    let label = fu.nick;
+    if(fu.banned) label += " (ZBANOWANY)";
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.onclick = () => {
+      currentChatTargetType = "user";
+      currentChatTargetId   = fid;
+      [...cfl.children].forEach(c=>c.classList.remove("selected"));
+      div.classList.add("selected");
+      [...document.getElementById("chatGroupsList").children].forEach(c=>c.classList.remove("selected"));
+      refreshChatView();
+    };
+    div.innerHTML = label + ` <span class="id">[${fid}]</span>`;
+    cfl.appendChild(div);
+  });
+
+  const cgl = document.getElementById("chatGroupsList");
+  cgl.innerHTML = "";
+  user.groups.forEach(gid => {
+    const g = vbData._groups[gid];
+    if(!g) return;
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.onclick = () => {
+      currentChatTargetType = "group";
+      currentChatTargetId   = gid;
+      [...cgl.children].forEach(c=>c.classList.remove("selected"));
+      div.classList.add("selected");
+      [...cfl.children].forEach(c=>c.classList.remove("selected"));
+      refreshChatView();
+    };
+    div.innerHTML = `${g.name} <span class="id">[${gid}]</span>`;
+    cgl.appendChild(div);
+  });
+
+  refreshChatView();
+}
+
+// ===== GROUP DETAILS (z rolami) =====
+function showGroupDetails(gid){
+  const g = vbData._groups[gid];
+  if(!g){
+    document.getElementById("groupDetails").innerHTML = "(brak danych)";
+    return;
+  }
+  const owner = getUserById(g.owner);
+
+  let rows = (g.members||[]).map(mid => {
+    const mu = getUserById(mid);
+    let role = "Członek";
+    if(g.owner === mid) role = "Właściciel";
+    else if((g.moderators||[]).includes(mid)) role = "Moderator";
+
+    let nick = mu ? mu.nick : "?";
+    if(mu && mu.banned) nick += " (ZBANOWANY)";
+
+    return `<tr><td>${nick}</td><td>${mid}</td><td>${role}</td></tr>`;
+  }).join("");
+  if(!rows){
+    rows = `<tr><td colspan="3">(brak członków)</td></tr>`;
+  }
+
+  const html = `
+    <b>Nazwa:</b> ${g.name}<br>
+    <b>ID grupy:</b> ${g.id}<br>
+    <b>Właściciel:</b> ${(owner?owner.nick:"?")} [${g.owner}]<br>
+    <b>Członkowie:</b><br>
+    <table border="1" cellpadding="2" cellspacing="0" style="border-collapse:collapse;font-size:11px;">
+      <tr>
+        <th>Nick</th>
+        <th>ID</th>
+        <th>Rola</th>
+      </tr>
+      ${rows}
+    </table>
+  `;
+  document.getElementById("groupDetails").innerHTML = html;
+}
+
+// ===== FRIENDS =====
+async function addFriendAction(){
+  setText("friendsStatus","",null);
+  const input = document.getElementById("friendInput").value.trim();
+  if(!input){
+    setText("friendsStatus","Wpisz ID lub e-mail.",false);
+    return;
+  }
+  const me = getUserById(currentId);
+  ensureUserStruct(me);
+
+  let target = null;
+  if(input.toUpperCase().startsWith("VBV-")){
+    target = getUserById(input.toUpperCase());
+  }else{
+    target = getUserByEmail(input);
+  }
+
+  if(!target){
+    setText("friendsStatus","Nie znaleziono takiego użytkownika.",false);
+    return;
+  }
+  ensureUserStruct(target);
+  if(target.deleted){
+    setText("friendsStatus","To konto jest usunięte.",false);
+    return;
+  }
+  if(target.id === me.id){
+    setText("friendsStatus","Nie możesz dodać siebie.",false);
+    return;
+  }
+
+  if(!me.friends.includes(target.id)){
+    me.friends.push(target.id);
+  }
+  if(!target.friends.includes(me.id)){
+    target.friends.push(me.id);
+  }
+
+  try{
+    await saveData("VBVchat – add friend");
+    setText("friendsStatus","Dodano do znajomych.",true);
+    refreshUI();
+  }catch(e){
+    setText("friendsStatus","Błąd: "+e.message,false);
+  }
+}
+
+async function removeFriendAction(){
+  setText("friendsStatus","",null);
+  if(!selectedFriendId){
+    setText("friendsStatus","Zaznacz znajomego.",false);
+    return;
+  }
+  const me = getUserById(currentId);
+  const target = getUserById(selectedFriendId);
+  if(!target){
+    setText("friendsStatus","Nie znaleziono wybranego znajomego.",false);
+    return;
+  }
+  ensureUserStruct(me);
+  ensureUserStruct(target);
+
+  me.friends = me.friends.filter(id => id !== target.id);
+  target.friends = target.friends.filter(id => id !== me.id);
+
+  try{
+    await saveData("VBVchat – remove friend");
+    setText("friendsStatus","Usunięto ze znajomych.",true);
+    selectedFriendId = null;
+    refreshUI();
+  }catch(e){
+    setText("friendsStatus","Błąd: "+e.message,false);
+  }
+}
+
+// ===== BLOCK =====
+async function blockUserAction(){
+  setText("blockStatus","",null);
+  const input = document.getElementById("blockInput").value.trim();
+  if(!input){
+    setText("blockStatus","Wpisz ID lub e-mail.",false);
+    return;
+  }
+  const me = getUserById(currentId);
+  ensureUserStruct(me);
+
+  let target = null;
+  if(input.toUpperCase().startsWith("VBV-")){
+    target = getUserById(input.toUpperCase());
+  }else{
+    target = getUserByEmail(input);
+  }
+
+  if(!target){
+    setText("blockStatus","Nie znaleziono użytkownika.",false);
+    return;
+  }
+  ensureUserStruct(target);
+  if(target.id === me.id){
+    setText("blockStatus","Nie możesz zablokować siebie.",false);
+    return;
+  }
+
+  if(!me.blockedUsers.includes(target.id)){
+    me.blockedUsers.push(target.id);
+  }
+
+  try{
+    await saveData("VBVchat – block user");
+    setText("blockStatus","Użytkownik zablokowany. Ani Ty, ani on nie możecie pisać dopóki ktoś nie odblokuje.",true);
+    refreshUI();
+  }catch(e){
+    setText("blockStatus","Błąd: "+e.message,false);
+  }
+}
+
+async function unblockUserAction(){
+  setText("blockStatus","",null);
+  if(!selectedBlockedId){
+    setText("blockStatus","Zaznacz kogo odblokować.",false);
+    return;
+  }
+  const me = getUserById(currentId);
+  ensureUserStruct(me);
+  me.blockedUsers = me.blockedUsers.filter(id => id !== selectedBlockedId);
+
+  try{
+    await saveData("VBVchat – unblock user");
+    setText("blockStatus","Użytkownik odblokowany.",true);
+    selectedBlockedId = null;
+    refreshUI();
+  }catch(e){
+    setText("blockStatus","Błąd: "+e.message,false);
+  }
+}
+
+function isBlockedBetween(aId,bId){
+  const a = getUserById(aId);
+  const b = getUserById(bId);
+  if(!a || !b) return true;
+  ensureUserStruct(a);
+  ensureUserStruct(b);
+  if(a.blockedUsers.includes(bId)) return true;
+  if(b.blockedUsers.includes(aId)) return true;
+  if(a.deleted || b.deleted) return true;
+  return false;
+}
+
+// ===== GROUPS =====
+async function createGroupAction(){
+  setText("groupsStatus","",null);
+  const name = document.getElementById("groupName").value.trim();
+  if(!name){
+    setText("groupsStatus","Podaj nazwę grupy.",false);
+    return;
+  }
+  const me = getUserById(currentId);
+  ensureUserStruct(me);
+
+  const gid = genGroupId();
+  const group = {
+    id: gid,
+    name,
+    owner: me.id,
+    moderators: [],
+    members: [me.id],
+    createdAt: new Date().toISOString()
+  };
+
+  vbData._groups[gid] = group;
+  if(!me.groups.includes(gid)) me.groups.push(gid);
+  if(!me.ownedGroups.includes(gid)) me.ownedGroups.push(gid);
+
+  try{
+    await saveData("VBVchat – create group");
+    setText("groupsStatus","Grupa utworzona.",true);
+    selectedGroupId = gid;
+    refreshUI();
+  }catch(e){
+    setText("groupsStatus","Błąd: "+e.message,false);
+  }
+}
+
+function userHasGroupPower(userId, group){
+  if(group.owner === userId) return "owner";
+  if((group.moderators||[]).includes(userId)) return "mod";
+  return null;
+}
+
+async function addGroupMemberAction(){
+  setText("groupsStatus","",null);
+  const input = document.getElementById("groupMemberInput").value.trim();
+  if(!input){
+    setText("groupsStatus","Wpisz ID lub e-mail.",false);
+    return;
+  }
+  if(!selectedGroupId){
+    setText("groupsStatus","Wybierz grupę.",false);
+    return;
+  }
+  const group = vbData._groups[selectedGroupId];
+  if(!group){
+    setText("groupsStatus","Brak danych grupy.",false);
+    return;
+  }
+  const me = getUserById(currentId);
+  ensureUserStruct(me);
+
+  const pow = userHasGroupPower(me.id, group);
+  if(!pow){
+    setText("groupsStatus","Tylko właściciel lub moderator może dodawać.",false);
+    return;
+  }
+
+  let target = null;
+  if(input.toUpperCase().startsWith("VBV-")){
+    target = getUserById(input.toUpperCase());
+  }else{
+    target = getUserByEmail(input);
+  }
+
+  if(!target){
+    setText("groupsStatus","Nie znaleziono użytkownika.",false);
+    return;
+  }
+  ensureUserStruct(target);
+
+  if(isBlockedBetween(me.id, target.id)){
+    setText("groupsStatus","Nie możesz dodać, ponieważ jest blokada między wami.",false);
+    return;
+  }
+
+  if(!group.members.includes(target.id)){
+    group.members.push(target.id);
+  }
+  if(!target.groups.includes(group.id)){
+    target.groups.push(group.id);
+  }
+
+  try{
+    await saveData("VBVchat – add group member");
+    setText("groupsStatus","Dodano do grupy.",true);
+    refreshUI();
+  }catch(e){
+    setText("groupsStatus","Błąd: "+e.message,false);
+  }
+}
+
+async function setModeratorAction(){
+  setText("groupsStatus","",null);
+  const input = document.getElementById("groupModInput").value.trim();
+  if(!input){
+    setText("groupsStatus","Wpisz ID moderatora.",false);
+    return;
+  }
+  if(!selectedGroupId){
+    setText("groupsStatus","Wybierz grupę.",false);
+    return;
+  }
+  const group = vbData._groups[selectedGroupId];
+  if(!group){
+    setText("groupsStatus","Brak danych grupy.",false);
+    return;
+  }
+  const me = getUserById(currentId);
+  ensureUserStruct(me);
+
+  const pow = userHasGroupPower(me.id, group);
+  if(pow !== "owner"){
+    setText("groupsStatus","Tylko właściciel może nadawać moderatorów.",false);
+    return;
+  }
+
+  const target = getUserById(input.toUpperCase());
+  if(!target){
+    setText("groupsStatus","Nie znaleziono użytkownika o takim ID.",false);
+    return;
+  }
+  if(!group.members.includes(target.id)){
+    setText("groupsStatus","Użytkownik nie jest w tej grupie.",false);
+    return;
+  }
+  ensureUserStruct(target);
+
+  if(!group.moderators) group.moderators = [];
+  if(!group.moderators.includes(target.id)){
+    group.moderators.push(target.id);
+  }
+  if(!target.moderatorGroups.includes(group.id)){
+    target.moderatorGroups.push(group.id);
+  }
+
+  try{
+    await saveData("VBVchat – set moderator");
+    setText("groupsStatus","Nadano uprawnienia moderatora.",true);
+    refreshUI();
+  }catch(e){
+    setText("groupsStatus","Błąd: "+e.message,false);
+  }
+}
+
+async function kickMemberAction(){
+  setText("groupsStatus","",null);
+  const input = document.getElementById("groupKickInput").value.trim();
+  if(!input){
+    setText("groupsStatus","Wpisz ID do usunięcia.",false);
+    return;
+  }
+  if(!selectedGroupId){
+    setText("groupsStatus","Wybierz grupę.",false);
+    return;
+  }
+  const group = vbData._groups[selectedGroupId];
+  if(!group){
+    setText("groupsStatus","Brak danych grupy.",false);
+    return;
+  }
+  const me = getUserById(currentId);
+  ensureUserStruct(me);
+
+  const pow = userHasGroupPower(me.id, group);
+  if(!pow){
+    setText("groupsStatus","Tylko właściciel lub moderator może usuwać członków.",false);
+    return;
+  }
+
+  const target = getUserById(input.toUpperCase());
+  if(!target){
+    setText("groupsStatus","Nie znaleziono użytkownika o takim ID.",false);
+    return;
+  }
+  ensureUserStruct(target);
+
+  if(pow === "mod"){
+    if(target.id === group.owner || (group.moderators||[]).includes(target.id)){
+      setText("groupsStatus","Moderator nie może usuwać właściciela/moderatora.",false);
+      return;
+    }
+  }
+
+  group.members = group.members.filter(id => id !== target.id);
+  if(group.moderators) group.moderators = group.moderators.filter(id => id !== target.id);
+
+  target.groups = target.groups.filter(id => id !== group.id);
+  target.moderatorGroups = target.moderatorGroups.filter(id => id !== group.id);
+  target.ownedGroups = target.ownedGroups.filter(id => id !== group.id);
+
+  try{
+    await saveData("VBVchat – kick member");
+    setText("groupsStatus","Użytkownik usunięty z grupy.",true);
+    refreshUI();
+  }catch(e){
+    setText("groupsStatus","Błąd: "+e.message,false);
+  }
+}
+
+// ===== CZAT =====
+function buildChatLabelForMessage(msg){
+  if(msg.group){
+    return `${msg.from} ➜ ${msg.group}`;
+  }else{
+    return `${msg.from} ➜ ${msg.to}`;
+  }
+}
+
+async function refreshChatView(forceReload=false){
+  const labelEl = document.getElementById("chatTargetLabel");
+  const box     = document.getElementById("chatMessages");
+  setText("chatStatus","",null);
+
+  if(!currentChatTargetType || !currentChatTargetId){
+    labelEl.textContent = "(nie wybrano)";
+    box.innerHTML = "";
+    return;
+  }
+
+  const me = getUserById(currentId);
+  if(!me) return;
+
+  if(currentChatTargetType === "user"){
+    const target = getUserById(currentChatTargetId);
+    if(!target){
+      labelEl.textContent = "(nie znaleziono rozmówcy)";
+      box.innerHTML = "";
+      return;
+    }
+    let nick = target.nick;
+    if(target.banned) nick += " (ZBANOWANY)";
+    labelEl.innerHTML = `Czat z: <b>${nick} [${target.id}]</b>`;
+  }else{
+    const g = vbData._groups[currentChatTargetId];
+    if(!g){
+      labelEl.textContent = "(nie znaleziono grupy)";
+      box.innerHTML = "";
+      return;
+    }
+    labelEl.innerHTML = `Grupa: <b>${g.name} [${g.id}]</b>`;
+  }
+
+  const fileName = getChatFileForConversation(
+    currentChatTargetType,
+    currentId,
+    currentChatTargetId
+  );
+
+  const oldScrollTop = box.scrollTop;
+  const wasAtBottom = (box.scrollHeight - (box.scrollTop + box.clientHeight)) < 5;
+
+  try{
+    await loadChatFile(fileName, forceReload);
+  }catch(e){
+    console.error(e);
+    setText("chatStatus","Błąd ładowania historii czatu: "+e.message,false);
+    return;
+  }
+
+  const all = chatData[fileName] || [];
+  const convMsgs = all.filter(m => {
+    if(currentChatTargetType === "user"){
+      return (
+        (m.from === currentId && m.to === currentChatTargetId) ||
+        (m.from === currentChatTargetId && m.to === currentId)
+      );
+    }else{
+      return m.group === currentChatTargetId;
+    }
+  }).sort((a,b)=> new Date(a.time)-new Date(b.time));
+
+  box.innerHTML = "";
+  convMsgs.forEach(m => {
+    const div = document.createElement("div");
+    div.className = "msg" + (m.from === currentId ? " me" : "");
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.textContent = `[${new Date(m.time).toLocaleString()}] ` + buildChatLabelForMessage(m);
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+
+    let mainText = m.text || "";
+    if(m.type === "photo" || m.type === "file" || m.type === "voice"){
+      if(m.fileName) mainText += " " + m.fileName;
+    }else if(m.type === "gif" && m.fileName){
+      mainText = `[GIF] ${m.fileName}`;
+    }
+
+    bubble.textContent = mainText;
+
+    if(m.fileUrl){
+      const br = document.createElement("br");
+      bubble.appendChild(br);
+
+      if(m.type === "gif"){
+        const img = document.createElement("img");
+        img.src = m.fileUrl;
+        img.style.maxWidth = "160px";
+        img.style.maxHeight = "160px";
+        img.style.display = "block";
+        img.style.marginTop = "2px";
+        bubble.appendChild(img);
+
+        const br2 = document.createElement("br");
+        bubble.appendChild(br2);
+        const a = document.createElement("a");
+        a.href = m.fileUrl;
+        a.target = "_blank";
+        a.textContent = "Pobierz / podgląd";
+        bubble.appendChild(a);
+      }else{
+        const a = document.createElement("a");
+        a.href = m.fileUrl;
+        a.target = "_blank";
+        a.textContent = "Pobierz / podgląd";
+        bubble.appendChild(a);
+      }
+    }
+
+    // przycisk zgłaszania wiadomości (nie swoich)
+    if(m.from !== currentId){
+      const rep = document.createElement("div");
+      rep.className = "small";
+      rep.style.marginTop = "2px";
+      const shortText = (m.text||"").slice(0,120);
+      rep.innerHTML = `<a href="#" onclick="reportMessage('${m.id}','${m.from}',${JSON.stringify(shortText)});return false;">Zgłoś wiadomość</a>`;
+      bubble.appendChild(document.createElement("br"));
+      bubble.appendChild(rep);
+    }
+
+    div.appendChild(meta);
+    div.appendChild(bubble);
+    box.appendChild(div);
+
+    if(forceReload){
+      showChatNotification(m);
+    }
+  });
+
+  if(forceReload){
+    if(wasAtBottom){
+      box.scrollTop = box.scrollHeight;
+    }else{
+      box.scrollTop = oldScrollTop;
+    }
+  }else{
+    box.scrollTop = box.scrollHeight;
+  }
+}
+
+// wybór typu pliku
+function triggerFileSelect(kind){
+  let id;
+  if(kind === "photo") id = "filePhoto";
+  else if(kind === "voice") id = "fileVoice";
+  else id = "fileFile";
+
+  const input = document.getElementById(id);
+  if(!input) return;
+
+  input.value = "";
+  input.onchange = () => {
+    if(input.files && input.files[0]){
+      sendFileMessage(kind, input.files[0]);
+    }
+  };
+  input.click();
+}
+
+async function sendFileMessage(kind, file){
+  setText("chatStatus","",null);
+  if(!file){
+    setText("chatStatus","Nie wybrano pliku.",false);
+    return;
+  }
+  if(!currentChatTargetType || !currentChatTargetId){
+    setText("chatStatus","Najpierw wybierz rozmówcę lub grupę.",false);
+    return;
+  }
+
+  try{
+    setText("chatStatus","Wysyłanie pliku...",true);
+    const uploaded = await uploadFileToGithub(file, kind);
+
+    let displayText;
+    if(kind === "photo") displayText = "[Wysłano zdjęcie]";
+    else if(kind === "voice") displayText = "[Wysłano nagranie głosowe]";
+    else displayText = "[Wysłano plik]";
+
+    await sendChatInternal(displayText, kind, uploaded);
+    setText("chatStatus","Plik wysłany.",true);
+  }catch(e){
+    console.error(e);
+    setText("chatStatus","Błąd wysyłki pliku: "+e.message,false);
+  }
+}
+
+// wysyłanie tekstu
+async function sendChatText(){
+  const text = document.getElementById("chatText").value.trim();
+  if(!text){
+    setText("chatStatus","Wpisz treść wiadomości.",false);
+    return;
+  }
+  await sendChatInternal(text,"text",null);
+}
+
+// „dzwonienie”
+async function sendCall(){
+  await sendChatInternal("[Rozpoczęto połączenie]","call",null);
+}
+
+// główna funkcja wysyłania
+async function sendChatInternal(text, type, fileMeta){
+  setText("chatStatus","",null);
+  if(!currentChatTargetType || !currentChatTargetId){
+    setText("chatStatus","Najpierw wybierz rozmówcę lub grupę.",false);
+    return;
+  }
+
+  const me = getUserById(currentId);
+  if(!me){
+    setText("chatStatus","Brak zalogowanego użytkownika.",false);
+    return;
+  }
+  ensureUserStruct(me);
+
+  let targetUser = null;
+  let targetGroup = null;
+
+  if(currentChatTargetType === "user"){
+    targetUser = getUserById(currentChatTargetId);
+    if(!targetUser){
+      setText("chatStatus","Nie znaleziono rozmówcy.",false);
+      return;
+    }
+    ensureUserStruct(targetUser);
+
+    if(isBlockedBetween(me.id, targetUser.id)){
+      setText("chatStatus","Nie możesz wysłać – między wami jest blokada (Ty lub on).",false);
+      return;
+    }
+    if(targetUser.banned){
+      setText("chatStatus","Ten użytkownik jest zbanowany – nie można do niego pisać.",false);
+      return;
+    }
+  }else{
+    targetGroup = vbData._groups[currentChatTargetId];
+    if(!targetGroup){
+      setText("chatStatus","Nie znaleziono grupy.",false);
+      return;
+    }
+    if(!(targetGroup.members||[]).includes(me.id)){
+      setText("chatStatus","Nie jesteś członkiem tej grupy.",false);
+      return;
+    }
+  }
+
+  const fileName = getChatFileForConversation(
+    currentChatTargetType,
+    currentId,
+    currentChatTargetId
+  );
+
+  try{
+    await loadChatFile(fileName);
+  }catch(e){
+    console.error(e);
+    setText("chatStatus","Błąd ładowania czatu: "+e.message,false);
+    return;
+  }
+
+  if(!chatData[fileName]) chatData[fileName] = [];
+
+  const msg = {
+    id: "MSG-"+Date.now()+"-"+Math.floor(Math.random()*9999),
+    from: currentId,
+    to: currentChatTargetType==="user" ? currentChatTargetId : null,
+    group: currentChatTargetType==="group" ? currentChatTargetId : null,
+    text,
+    type,
+    time: new Date().toISOString(),
+    fileId:   fileMeta ? fileMeta.fileId   : null,
+    fileName: fileMeta ? fileMeta.fileName : null,
+    fileUrl:  fileMeta ? fileMeta.fileUrl  : null
+  };
+
+  chatData[fileName].push(msg);
+
+  try{
+    await saveChatFile(fileName,"VBVchat – new chat message");
+    document.getElementById("chatText").value = "";
+    refreshChatView();
+    setText("chatStatus","Wiadomość wysłana.",true);
+  }catch(e){
+    console.error(e);
+    setText("chatStatus","Błąd zapisu wiadomości: "+e.message,false);
+  }
+}
+
+// ===== GIF PANEL =====
+function startGifSend(){
+  if(!currentChatTargetType || !currentChatTargetId){
+    setText("chatStatus","Najpierw wybierz rozmówcę lub grupę.",false);
+    return;
+  }
+  gifSendMode = true;
+  selectedGifObj = null;
+  selectedGifId  = null;
+  setText("chatStatus","Tryb GIF: wybierz GIF z listy, a potem kliknij „Wyślij”.",true);
+  const panel = document.getElementById("gifPanel");
+  if(panel){
+    panel.style.display = "block";
+    renderGifList();
+    panel.scrollIntoView({behavior:"smooth"});
+  }
+  const info = document.getElementById("gifInfo");
+  if(info){
+    info.innerHTML = "Kliknij GIF z listy, aby zobaczyć podgląd.";
+  }
+}
+
+function toggleGifUpload(){
+  const row = document.getElementById("gifUploadRow");
+  if(!row) return;
+  row.style.display = row.style.display === "none" ? "block" : "none";
+  setText("gifUploadStatus","",null);
+}
+
+async function renderGifList(){
+  const list = document.getElementById("gifList");
+  const infoCount = document.getElementById("gifCountLabel");
+  if(!list) return;
+  try{
+    await loadGifsMeta();
+  }catch(e){
+    console.error(e);
+    list.innerHTML = "<div class='small' style='padding:4px;'>Błąd ładowania GIF-ów.</div>";
+    if(infoCount) infoCount.textContent = "(błąd)";
+    return;
+  }
+
+  const user = getUserById(currentId);
+  const scopeEl = document.querySelector("input[name='gifScope']:checked");
+  const scope = scopeEl ? scopeEl.value : "global";
+  const search = (document.getElementById("gifSearch")?.value || "").trim().toLowerCase();
+
+  let arr = gifsMeta.slice();
+  if(scope === "mine" && user){
+    arr = arr.filter(g => g.owner === user.id);
+  }
+
+  if(search){
+    arr = arr.filter(g => {
+      return (g.title||"").toLowerCase().includes(search) ||
+             (g.category||"").toLowerCase().includes(search) ||
+             (g.ownerNick||"").toLowerCase().includes(search);
+    });
+  }
+
+  list.innerHTML = "";
+  arr.forEach(g => {
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.style.gap = "6px";
+
+    div.onclick = () => onGifClick(g);
+
+    div.innerHTML = `
+      <div style="width:40px;height:30px;border:1px solid #ccc;overflow:hidden;background:#000;flex-shrink:0;">
+        <img src="${g.url}" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div>
+        <div><b>${g.title||"(bez nazwy)"}</b> <span class="id">[${g.id}]</span></div>
+        <div class="small">kategoria: ${g.category||"brak"} • autor: ${g.ownerNick||g.owner}</div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+
+  if(infoCount){
+    infoCount.textContent = `(${arr.length} znalezionych)`;
+  }
+
+  if(arr.length === 0){
+    list.innerHTML = "<div class='small' style='padding:4px;'>(brak GIF-ów w tej kategorii / filtrze)</div>";
+  }
+}
+
+async function uploadGif(){
+  const fileInput = document.getElementById("gifFileInput");
+  const titleInput = document.getElementById("gifTitleInput");
+  const catInput = document.getElementById("gifCategoryInput");
+  setText("gifUploadStatus","",null);
+
+  if(!fileInput || !fileInput.files || !fileInput.files[0]){
+    setText("gifUploadStatus","Wybierz plik GIF.",false);
+    return;
+  }
+  const file = fileInput.files[0];
+  const title = titleInput.value.trim() || file.name;
+  const category = catInput.value.trim() || "";
+  const user = getUserById(currentId);
+  if(!user){
+    setText("gifUploadStatus","Musisz być zalogowany.",false);
+    return;
+  }
+
+  try{
+    setText("gifUploadStatus","Wysyłanie GIF-a...",true);
+    const uploaded = await uploadFileToGithub(file,"gif");
+    await loadGifsMeta();
+
+    const gifObj = {
+      id: "GIF-"+Date.now()+"-"+Math.floor(Math.random()*9999),
+      title,
+      category,
+      owner: user.id,
+      ownerNick: user.nick,
+      url: uploaded.fileUrl,
+      path: uploaded.path,
+      createdAt: new Date().toISOString()
+    };
+    gifsMeta.push(gifObj);
+    await saveGifsMeta("VBVchat – new GIF");
+
+    fileInput.value = "";
+    titleInput.value = "";
+    catInput.value = "";
+    setText("gifUploadStatus","GIF dodany.",true);
+    renderGifList();
+  }catch(e){
+    console.error(e);
+    setText("gifUploadStatus","Błąd wysyłania GIF-a: "+e.message,false);
+  }
+}
+
+function onGifClick(g){
+  selectedGifId  = g.id;
+  selectedGifObj = g;
+
+  const info = document.getElementById("gifInfo");
+  if(info){
+    info.innerHTML = `
+      <div style="display:flex;gap:8px;align-items:flex-start;">
+        <div style="width:80px;height:60px;border:1px solid #ccc;overflow:hidden;background:#000;flex-shrink:0;">
+          <img src="${g.url}" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div>
+          <div><b>${g.title||"(bez nazwy)"}</b></div>
+          <div>Kategoria: ${g.category||"brak"}</div>
+          <div>Autor: ${g.ownerNick||g.owner}</div>
+          <div style="margin-top:4px;">
+            <button onclick="sendSelectedGif()">Wyślij</button>
+            <button onclick="reportGif('${g.id}')">Zgłoś GIF</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if(gifSendMode){
+    setText("chatStatus","Wybrano GIF – kliknij „Wyślij”, aby go wysłać.",true);
+  }
+}
+
+async function sendSelectedGif(){
+  if(!selectedGifObj){
+    setText("chatStatus","Najpierw wybierz GIF z listy.",false);
+    return;
+  }
+  await sendGifMessage(selectedGifObj);
+  gifSendMode = false;
+  setText("chatStatus","GIF wysłany na czat.",true);
+}
+
+async function sendGifMessage(g){
+  if(!g || !g.url){
+    setText("chatStatus","Błąd: brak danych GIF-a.",false);
+    return;
+  }
+  const meta = { fileId:g.id, fileName:g.title||"GIF", fileUrl:g.url };
+  await sendChatInternal(`[GIF] ${g.title||""}`,"gif",meta);
+}
+
+// ===== ZGŁOSZENIA GIF-ÓW =====
+function reportGif(gifId){
+  if(!vbData._meta.gifReports) vbData._meta.gifReports = [];
+  const already = vbData._meta.gifReports.some(r => r.gifId === gifId && r.by === currentId);
+  if(already){
+    alert("Już zgłosiłeś ten GIF.");
+    return;
+  }
+  vbData._meta.gifReports.push({
+    gifId,
+    by: currentId,
+    time: new Date().toISOString()
+  });
+  saveData("VBVchat – report GIF").catch(console.error);
+  alert("GIF zgłoszony do administracji.");
+}
+
+// ===== ZGŁOSZENIA WIADOMOŚCI + AUTOBAN =====
+function reportMessage(mid, fromId, text){
+  if(!vbData._meta.msgReports) vbData._meta.msgReports = [];
+
+  const already = vbData._meta.msgReports.some(r => r.mid === mid && r.by === currentId);
+  if(already){
+    alert("Już zgłosiłeś tę wiadomość.");
+    return;
+  }
+
+  vbData._meta.msgReports.push({
+    mid: mid,
+    from: fromId,
+    by: currentId,
+    text: text || "",
+    convType: currentChatTargetType,
+    convId: currentChatTargetId,
+    time: new Date().toISOString()
+  });
+
+  // auto-ban: 3 różne osoby zgłaszają tego samego autora
+  const reporters = new Set(
+    vbData._meta.msgReports
+      .filter(r => r.from === fromId)
+      .map(r => r.by)
+  );
+  if(reporters.size >= 3){
+    const u = getUserById(fromId);
+    if(u && !u.banned){
+      u.banned = true;
+      alert("Użytkownik został automatycznie zbanowany (3 zgłoszenia od różnych osób).");
+      saveData("VBVchat – autoban").catch(console.error);
+    }
+  }
+
+  saveData("VBVchat – report message").catch(console.error);
+  alert("Wiadomość zgłoszona do administracji.");
+}
+
+</script>
+
+</body>
+</html>
