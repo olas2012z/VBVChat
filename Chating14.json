@@ -273,5 +273,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1764318223168-5171",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "aaa",
+    "type": "text",
+    "time": "2025-11-28T08:23:43.168Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
