@@ -261,5 +261,17 @@
     "fileId": "GIF-1764318136367-5148",
     "fileName": "Click Button",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764318135164-8258__7Ng0.gif"
+  },
+  {
+    "id": "MSG-1764318221000-1307",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "aa",
+    "type": "text",
+    "time": "2025-11-28T08:23:41.000Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
