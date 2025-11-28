@@ -34,5 +34,17 @@
     "fileId": "GIF-1764084904801-5100",
     "fileName": "Nyan Cat",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764084903753-7864__PYh.gif"
+  },
+  {
+    "id": "MSG-1764318525454-1455",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "[Rozpoczęto połączenie]",
+    "type": "call",
+    "time": "2025-11-28T08:28:45.454Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
