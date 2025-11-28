@@ -16,7 +16,9 @@
       "id": "GRP-264387",
       "name": "Szaliski",
       "owner": "VBV-SZALISON",
-      "moderators": [],
+      "moderators": [
+        "VBV-ALEN"
+      ],
       "members": [
         "VBV-SZALISON",
         "VBV-ALEN"
@@ -66,7 +68,9 @@
       "GRP-264387"
     ],
     "ownedGroups": [],
-    "moderatorGroups": [],
+    "moderatorGroups": [
+      "GRP-264387"
+    ],
     "status": "online",
     "avatar": "default",
     "deleted": false,
