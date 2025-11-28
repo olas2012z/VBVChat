@@ -225,5 +225,17 @@
     "fileId": "GIF-1764313030939-2888",
     "fileName": "Girl with the MP5",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764313029072-4041__1SgY.gif"
+  },
+  {
+    "id": "MSG-1764317838314-7954",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "[GIF] Pikachu Hug",
+    "type": "gif",
+    "time": "2025-11-28T08:17:18.314Z",
+    "fileId": "GIF-1763907267184-6793",
+    "fileName": "Pikachu Hug",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1763907264221-3199__AoYf.gif"
   }
 ]
