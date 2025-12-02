@@ -46,5 +46,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1764691946424-1647",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "Siema",
+    "type": "text",
+    "time": "2025-12-02T16:12:26.424Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
