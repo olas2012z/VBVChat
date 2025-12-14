@@ -297,5 +297,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1765708430448-5388",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "[Rozpoczęto połączenie]",
+    "type": "call",
+    "time": "2025-12-14T10:33:50.448Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
