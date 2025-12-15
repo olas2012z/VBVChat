@@ -70,5 +70,17 @@
     "fileId": "FILE-1765834316160-1342",
     "fileName": "ComplementaryReimagined_r5.0.zip",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1765834316160-1342__ComplementaryReimagined_r5.0.zip"
+  },
+  {
+    "id": "MSG-1765834334341-4730",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "[Wysłano plik]",
+    "type": "file",
+    "time": "2025-12-15T21:32:14.341Z",
+    "fileId": "FILE-1765834325878-8070",
+    "fileName": "ChatGPT Image 15 gru 2025, 10_45_11.png",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1765834325878-8070__ChatGPT_Image_15_gru_2025__10_45_11.png"
   }
 ]
