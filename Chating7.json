@@ -58,5 +58,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1765834320479-6102",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "[Wysłano plik]",
+    "type": "file",
+    "time": "2025-12-15T21:32:00.479Z",
+    "fileId": "FILE-1765834316160-1342",
+    "fileName": "ComplementaryReimagined_r5.0.zip",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1765834316160-1342__ComplementaryReimagined_r5.0.zip"
   }
 ]
