@@ -56,8 +56,17 @@
     "banned": false,
     "createdAt": "2025-11-22T19:18:09.864Z",
     "bannedUntil": null,
-    "adsEnabled": true,
-    "ads": [],
+    "adsEnabled": false,
+    "ads": [
+      {
+        "id": "AD-1765909365049",
+        "name": "Szaliski",
+        "link": "htttps://voxelcraftlite.com",
+        "imageUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1765909364135-89__Zrzut_ekranu_2025-08-10_231836.png",
+        "expiresAt": "forever",
+        "createdAt": "2025-12-16T18:22:45.048Z"
+      }
+    ],
     "badge": "",
     "subscribedUntil": null
   },
@@ -84,6 +93,10 @@
     "avatar": "default",
     "deleted": false,
     "banned": false,
-    "createdAt": "2025-11-28T08:24:49.227Z"
+    "createdAt": "2025-11-28T08:24:49.227Z",
+    "adsEnabled": true,
+    "ads": [],
+    "badge": "",
+    "subscribedUntil": null
   }
 }
