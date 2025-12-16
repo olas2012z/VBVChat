@@ -55,7 +55,11 @@
     "deleted": false,
     "banned": false,
     "createdAt": "2025-11-22T19:18:09.864Z",
-    "bannedUntil": null
+    "bannedUntil": null,
+    "adsEnabled": true,
+    "ads": [],
+    "badge": "",
+    "subscribedUntil": null
   },
   "VBV-ALEN": {
     "id": "VBV-ALEN",
