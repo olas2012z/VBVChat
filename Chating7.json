@@ -106,5 +106,17 @@
     "fileId": "FILE-1765900499569-605",
     "fileName": "Testo123.png",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1765900499569-605__Testo123.png"
+  },
+  {
+    "id": "MSG-1765907700764-509",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "[Wysłano plik]",
+    "type": "file",
+    "time": "2025-12-16T17:55:00.764Z",
+    "fileId": "FILE-1765907696066-2684",
+    "fileName": "OptiFine_1.20.1_HD_U_I6 (2).jar",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1765907696066-2684__OptiFine_1.20.1_HD_U_I6__2_.jar"
   }
 ]
