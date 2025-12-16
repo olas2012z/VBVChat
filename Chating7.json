@@ -94,5 +94,17 @@
     "fileId": "FILE-1765900487984-2517",
     "fileName": "HGRevive_plugin.zip",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1765900487984-2517__HGRevive_plugin.zip"
+  },
+  {
+    "id": "MSG-1765900501520-3573",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "[Wysłano zdjęcie]",
+    "type": "photo",
+    "time": "2025-12-16T15:55:01.520Z",
+    "fileId": "FILE-1765900499569-605",
+    "fileName": "Testo123.png",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1765900499569-605__Testo123.png"
   }
 ]
