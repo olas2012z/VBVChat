@@ -321,5 +321,17 @@
     "fileId": "GIF-1764313030939-2888",
     "fileName": "Girl with the MP5",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764313029072-4041__1SgY.gif"
+  },
+  {
+    "id": "MSG-1766009368143-5262",
+    "from": "VBV-SZALISON",
+    "to": null,
+    "group": "GRP-264387",
+    "text": "[GIF] Click Button",
+    "type": "gif",
+    "time": "2025-12-17T22:09:28.143Z",
+    "fileId": "GIF-1764318136367-5148",
+    "fileName": "Click Button",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764318135164-8258__7Ng0.gif"
   }
 ]
