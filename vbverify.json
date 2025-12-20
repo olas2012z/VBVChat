@@ -138,5 +138,28 @@
     "ads": [],
     "badge": "",
     "subscribedUntil": null
+  },
+  "VBV-SZALISEK": {
+    "id": "VBV-SZALISEK",
+    "nick": "Szalis69",
+    "email_enc": null,
+    "birth_enc": "U2FsdGVkX1+ddFLfi12avvmM3qFCN50OrfFE6R1MA+Y=",
+    "password": "h1889322657",
+    "verified": true,
+    "verifyCode": null,
+    "friends": [],
+    "blockedUsers": [],
+    "groups": [],
+    "ownedGroups": [],
+    "moderatorGroups": [],
+    "status": "offline",
+    "avatar": "default",
+    "badge": "",
+    "adsEnabled": true,
+    "ads": [],
+    "subscribedUntil": null,
+    "deleted": false,
+    "banned": false,
+    "createdAt": "2025-12-20T17:13:58.044Z"
   }
 }
