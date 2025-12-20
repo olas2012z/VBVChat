@@ -72,5 +72,18 @@
     "fileName": null,
     "fileUrl": null,
     "extra": null
+  },
+  {
+    "id": "MSG-1766250934814-2221",
+    "from": "VBV-SZALISEK",
+    "to": null,
+    "group": "GRP-295446",
+    "text": "[Wysłano nagranie]",
+    "type": "voice",
+    "time": "2025-12-20T17:15:34.814Z",
+    "fileId": "FILE-1766250933798-5815",
+    "fileName": "vbv_voice_1766250933798.webm",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1766250933798-5815__vbv_voice_1766250933798.webm",
+    "extra": null
   }
 ]
