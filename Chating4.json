@@ -46,5 +46,18 @@
     "fileId": "FILE-1763716377983-9111",
     "fileName": "5197877235810304 (2).wav",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/uploads/FILE-1763716377983-9111__5197877235810304__2_.wav"
+  },
+  {
+    "id": "MSG-1766250899200-2093",
+    "from": "VBV-SZALISEK",
+    "to": null,
+    "group": "GRP-295446",
+    "text": "Siema",
+    "type": "text",
+    "time": "2025-12-20T17:14:59.200Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null,
+    "extra": null
   }
 ]
