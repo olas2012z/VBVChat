@@ -166,5 +166,21 @@
       "sessionId": "CALL-1766326207133-189",
       "fromPeer": "VBV-SZALISON"
     }
+  },
+  {
+    "id": "MSG-1766326207909-658",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "[CALL SIGNAL]",
+    "type": "call_signal",
+    "time": "2025-12-21T14:10:07.909Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null,
+    "extra": {
+      "type": "call_cancel",
+      "sessionId": "CALL-1766326207133-189"
+    }
   }
 ]
