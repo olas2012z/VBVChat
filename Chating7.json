@@ -194,5 +194,17 @@
     "fileId": null,
     "fileName": null,
     "fileUrl": null
+  },
+  {
+    "id": "MSG-1766356679823-8990",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "[GIF] Error Fail",
+    "type": "gif",
+    "time": "2025-12-21T22:37:59.823Z",
+    "fileId": "GIF-1764312868617-6505",
+    "fileName": "Error Fail",
+    "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764312865860-4925__y7.gif"
   }
 ]
