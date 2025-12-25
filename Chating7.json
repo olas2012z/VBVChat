@@ -206,5 +206,17 @@
     "fileId": "GIF-1764312868617-6505",
     "fileName": "Error Fail",
     "fileUrl": "https://raw.githubusercontent.com/olas2012z/VBVChat/main/gifs/FILE-1764312865860-4925__y7.gif"
+  },
+  {
+    "id": "MSG-1766660708275-9627",
+    "from": "VBV-SZALISON",
+    "to": "VBV-ALEN",
+    "group": null,
+    "text": "[Rozpoczęto połączenie]",
+    "type": "call",
+    "time": "2025-12-25T11:05:08.275Z",
+    "fileId": null,
+    "fileName": null,
+    "fileUrl": null
   }
 ]
